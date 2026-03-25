@@ -1,0 +1,360 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionTitle from '../components/ui/SectionTitle.astro';
+import Button from '../components/ui/Button.astro';
+---
+<PageLayout
+  title="Services — Studio We Are"
+  description="Création de sites web vitrine, e-commerce, WordPress sur-mesure, Astro. Conseil, maintenance, photographie. Lot, France."
+>
+  <!-- Page hero -->
+  <section class="page-hero section section--dark">
+    <div class="container">
+      <SectionTitle
+        label="Services"
+        title="La bonne solution pour votre projet"
+        subtitle="Pas la plus complexe — la plus juste."
+        align="center"
+      />
+    </div>
+  </section>
+
+  <!-- Two families -->
+  <section class="section">
+    <div class="container">
+      <div class="families">
+        <div class="family animate-slide stagger-1">
+          <div class="family__tag-wrap">
+            <span class="family__badge">Rapide à déployer</span>
+          </div>
+          <h2 class="family__title">Sites rapides à mettre en place</h2>
+          <p class="family__intro">
+            Pour les besoins urgents, les budgets maîtrisés ou les projets simples.
+            On part de bases éprouvées, on personnalise l'essentiel.
+          </p>
+          <ul class="family__list">
+            <li>Hébergement gratuit possible (Cloudflare Pages, etc.)</li>
+            <li>Livraison en quelques semaines</li>
+            <li>Contenu gérable en autonomie</li>
+            <li>Idéal : auto-entrepreneurs, artisans, associations, artistes</li>
+          </ul>
+        </div>
+
+        <div class="family family--accent animate-slide stagger-2">
+          <div class="family__tag-wrap">
+            <span class="family__badge">Sur-mesure</span>
+          </div>
+          <h2 class="family__title">Sites réalisés de A à Z</h2>
+          <p class="family__intro">
+            Pour les projets ambitieux, durables, entièrement personnalisés.
+            Développement complet, choix libres, durée de vie longue.
+          </p>
+          <ul class="family__list">
+            <li>Développement entièrement sur-mesure</li>
+            <li>Avec ou sans interface d'édition de contenu</li>
+            <li>Liberté totale sur le choix d'hébergeur</li>
+            <li>Idéal : PME, e-commerce, secteur public, projets à fort trafic</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech table -->
+  <section class="section section--alt">
+    <div class="container">
+      <SectionTitle label="Détail technique" title="Les offres" />
+      <div class="table-wrap animate-fade">
+        <table class="tech-table">
+          <thead>
+            <tr>
+              <th scope="col">Offre</th>
+              <th scope="col">Stack</th>
+              <th scope="col">Idéal pour</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>WordPress classique</td>
+              <td>WordPress + Bricks ou Etch</td>
+              <td>Clients souhaitant gérer leur contenu</td>
+            </tr>
+            <tr>
+              <td>WordPress Headless</td>
+              <td>WordPress CMS + Astro front</td>
+              <td>Performance maximale + gestion de contenu</td>
+            </tr>
+            <tr>
+              <td>Astro statique</td>
+              <td>Astro + Markdown / CMS headless</td>
+              <td>Sites rapides sans back-office</td>
+            </tr>
+            <tr>
+              <td>WooCommerce</td>
+              <td>WordPress + WooCommerce</td>
+              <td>E-commerce avec besoins spécifiques</td>
+            </tr>
+            <tr>
+              <td>Shopify</td>
+              <td>Shopify</td>
+              <td>E-commerce clé en main</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Encarts -->
+  <section class="section">
+    <div class="container">
+      <SectionTitle label="En complément" title="Ce qui fait la différence" />
+      <div class="encarts">
+        <div class="encart animate-slide stagger-1">
+          <div class="encart__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+          </div>
+          <h3>Photographie & contenu visuel</h3>
+          <p>
+            Je suis photographe de paysages et de voyage. Des images authentiques,
+            produites pour votre site, vos réseaux, votre communication imprimée.
+            Cohérence garantie entre les visuels et le site.
+          </p>
+          <a href="/photographie" class="encart__link">Voir le portfolio photo →</a>
+        </div>
+
+        <div class="encart animate-slide stagger-2">
+          <div class="encart__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>Collaboration avec Céline Andrieux</h3>
+          <p>
+            Pour les projets nécessitant une identité visuelle forte, je travaille
+            avec Céline Andrieux, graphiste indépendante. Direction artistique,
+            maquettes, identité — intégrés avec précision dans le code.
+          </p>
+        </div>
+
+        <div class="encart animate-slide stagger-3">
+          <div class="encart__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <h3>Veille technologique continue</h3>
+          <p>
+            Les outils évoluent vite — je les suis activement.
+            IA, nouveaux frameworks, automatisations : cette curiosité me permet de
+            vous proposer des solutions pertinentes plutôt que des modes passagères.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section section--dark">
+    <div class="container cta-wrap">
+      <h2 class="cta-title animate-slide">Un projet en tête ?</h2>
+      <p class="cta-sub animate-fade stagger-1">
+        Décrivez-moi votre besoin — je vous proposerai l'approche la plus adaptée.
+      </p>
+      <div class="animate-fade stagger-2">
+        <Button href="/contact" variant="primary" size="lg">Discutons-en</Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-lg);
+  }
+
+  .families {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .family {
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .family--accent {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 4%, var(--bg));
+  }
+
+  .family__tag-wrap {
+    margin-bottom: 1.25rem;
+  }
+
+  .family__badge {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2em 0.75em;
+    border-radius: 999px;
+  }
+
+  .family__title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .family__intro {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    max-width: none;
+  }
+
+  .family__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .family__list li {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .family__list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+  }
+
+  .tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+
+  .tech-table th,
+  .tech-table td {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9375rem;
+  }
+
+  .tech-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .tech-table th {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg-alt);
+  }
+
+  .tech-table tbody tr:hover td {
+    background: color-mix(in srgb, var(--accent) 4%, var(--bg-alt));
+  }
+
+  .encarts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .encart {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .encart__icon {
+    width: 3rem;
+    height: 3rem;
+    background: var(--bg-alt);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+  }
+
+  .encart h3 {
+    font-size: 1.35rem;
+    margin: 0;
+  }
+
+  .encart p {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  .encart__link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: auto;
+    transition: color var(--transition);
+  }
+
+  .encart__link:hover {
+    color: var(--accent-light);
+  }
+
+  .cta-wrap {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: var(--space-xl);
+  }
+
+  .cta-title {
+    color: var(--text-inv);
+  }
+
+  .cta-sub {
+    color: rgba(240, 237, 232, 0.65);
+    font-size: 1.125rem;
+    max-width: 48ch;
+    font-weight: 300;
+  }
+
+  @media (max-width: 700px) {
+    .families {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

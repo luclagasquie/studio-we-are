@@ -1,0 +1,366 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionTitle from '../components/ui/SectionTitle.astro';
+
+const searchParams = Astro.url.searchParams;
+const merci = searchParams.get('merci') === '1';
+const objet = searchParams.get('objet') ?? '';
+
+const objetOptions = [
+  { value: '', label: 'Choisir…' },
+  { value: 'nouveau-site', label: 'Nouveau site' },
+  { value: 'refonte', label: 'Refonte de site existant' },
+  { value: 'maintenance', label: 'Maintenance / support' },
+  { value: 'conseil', label: 'Conseil & accompagnement' },
+  { value: 'photographie', label: 'Photographie' },
+  { value: 'autre', label: 'Autre' },
+];
+---
+<PageLayout
+  title="Contact — Studio We Are"
+  description="Parlons de votre projet web. Basé dans le Lot, Studio We Are intervient partout en France et à l'international. Réponse sous 48h."
+>
+  <section class="section contact-section">
+    <div class="container contact-layout">
+
+      <!-- Left: info -->
+      <div class="contact-info animate-slide stagger-1">
+        <SectionTitle
+          label="Contact"
+          title="Parlons de votre projet"
+          subtitle="Je réponds sous 48h en semaine."
+        />
+        <dl class="contact-details">
+          <div class="contact-item">
+            <dt>Email</dt>
+            <dd><a href="mailto:luc@studioweare.fr">luc@studioweare.fr</a></dd>
+          </div>
+          <div class="contact-item">
+            <dt>Localisation</dt>
+            <dd>Lot (46), France</dd>
+          </div>
+          <div class="contact-item">
+            <dt>Périmètre</dt>
+            <dd>France entière, international (Canada, Suisse)</dd>
+          </div>
+          <div class="contact-item">
+            <dt>Délai de réponse</dt>
+            <dd>Sous 48h en semaine</dd>
+          </div>
+        </dl>
+        <p class="contact-note">
+          Pas besoin d'avoir un cahier des charges complet. Une idée, une problématique,
+          un budget approximatif — c'est suffisant pour commencer à discuter.
+        </p>
+      </div>
+
+      <!-- Right: form -->
+      <div class="contact-form-wrap animate-slide stagger-2">
+        {merci ? (
+          <div class="merci-message" role="alert">
+            <h2>Message envoyé !</h2>
+            <p>Merci pour votre message. Je vous répondrai sous 48h.</p>
+            <a href="/" class="merci-link">Retour à l'accueil →</a>
+          </div>
+        ) : (
+          <form
+            class="contact-form"
+            method="POST"
+            action="/api/contact"
+            novalidate
+          >
+            <!-- Honeypot anti-spam -->
+            <div class="visually-hidden" aria-hidden="true">
+              <label for="website">Ne pas remplir ce champ</label>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nom" class="form-label">
+                  Nom <span class="form-required" aria-label="champ obligatoire">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="nom"
+                  name="nom"
+                  required
+                  class="form-input"
+                  autocomplete="name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">
+                  Email <span class="form-required" aria-label="champ obligatoire">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="form-input"
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="telephone" class="form-label">
+                  Téléphone <span class="form-optional">(facultatif)</span>
+                </label>
+                <input
+                  type="tel"
+                  id="telephone"
+                  name="telephone"
+                  class="form-input"
+                  autocomplete="tel"
+                />
+              </div>
+              <div class="form-group">
+                <label for="objet" class="form-label">
+                  Objet <span class="form-required" aria-label="champ obligatoire">*</span>
+                </label>
+                <select id="objet" name="objet" required class="form-input">
+                  {objetOptions.map((opt) => (
+                    <option value={opt.value} selected={opt.value === objet}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">
+                Message <span class="form-required" aria-label="champ obligatoire">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                class="form-input form-textarea"
+                rows="6"
+                placeholder="Décrivez votre projet, votre besoin, vos questions…"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">
+              Envoyer le message
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .contact-section {
+    padding-block: var(--space-xl);
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-item dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-item dd {
+    color: var(--text);
+    font-size: 0.9375rem;
+  }
+
+  .contact-item a {
+    color: var(--accent);
+    transition: color var(--transition);
+  }
+
+  .contact-item a:hover {
+    color: var(--accent-light);
+  }
+
+  .contact-note {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-style: italic;
+    max-width: 32ch;
+    padding: 1.25rem;
+    border-left: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 5%, var(--bg));
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  /* Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .form-required {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .form-optional {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .form-input {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color var(--transition);
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .form-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 160px;
+    line-height: 1.6;
+  }
+
+  .form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2.5rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    align-self: flex-start;
+  }
+
+  .form-submit:hover {
+    background: var(--accent-light);
+  }
+
+  .form-submit:active {
+    transform: translateY(1px);
+  }
+
+  /* Thank you state */
+  .merci-message {
+    padding: 3rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .merci-message h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .merci-message p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    max-width: none;
+  }
+
+  .merci-link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .merci-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Honeypot */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

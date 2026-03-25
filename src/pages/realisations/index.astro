@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionTitle from '../../components/ui/SectionTitle.astro';
+import ProjectCard from '../../components/realisations/ProjectCard.astro';
+
+const allProjects = await getCollection('projets', ({ data }) =>
+  import.meta.env.DEV ? true : !data.draft
+);
+
+const projects = allProjects.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+<PageLayout
+  title="Réalisations — Studio We Are"
+  description="Découvrez nos projets web : sites vitrine, e-commerce, WordPress sur-mesure, Astro. Études de cas détaillées."
+>
+  <section class="section">
+    <div class="container">
+      <SectionTitle
+        label="Portfolio"
+        title="Nos réalisations"
+        subtitle="Des projets pensés pour durer — chaque site raconte une histoire."
+      />
+      {projects.length > 0 ? (
+        <div class="projects-grid">
+          {projects.map((p, i) => (
+            <ProjectCard
+              title={p.data.title}
+              description={p.data.description}
+              secteur={p.data.secteur}
+              stack={p.data.stack}
+              slug={p.data.slug}
+              draft={p.data.draft}
+              stagger={Math.min(i + 1, 6)}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="empty-state">Nos études de cas arrivent bientôt.</p>
+      )}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  .empty-state {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 3rem 0;
+  }
+</style>

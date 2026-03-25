@@ -1,0 +1,179 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projets', ({ data }) => !data.draft);
+  return projects.map((p) => ({
+    params: { slug: p.data.slug },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+---
+<PageLayout
+  title={`${d.title} — Studio We Are`}
+  description={d.description}
+>
+  <article>
+    <!-- Case study header -->
+    <header class="case-header section--alt">
+      <div class="container case-header__inner">
+        <div class="animate-slide">
+          <a href="/realisations" class="case-back">← Toutes les réalisations</a>
+          <p class="case-sector">{d.secteur}</p>
+          <h1 class="case-title">{d.title}</h1>
+          <p class="case-desc">{d.description}</p>
+          <div class="case-stack">
+            {d.stack.map((s) => <Badge label={s} />)}
+          </div>
+          {d.url && (
+            <a
+              href={d.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="case-site-link"
+              aria-label={`Voir le site — ${d.title}`}
+            >
+              Voir le site ↗
+            </a>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <!-- Case study body -->
+    <section class="section">
+      <div class="container">
+        <div class="case-content">
+          <Content />
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--alt">
+      <div class="container case-cta animate-slide">
+        <div class="case-cta__text">
+          <h2 class="case-cta__title">Vous avez un projet similaire ?</h2>
+          <p>Parlons de vos besoins — je vous donnerai un avis honnête sur la meilleure approche.</p>
+        </div>
+        <Button href="/contact" variant="primary" size="lg">Prendre contact</Button>
+      </div>
+    </section>
+  </article>
+</PageLayout>
+
+<style>
+  .case-header {
+    padding-block: var(--space-xl);
+  }
+
+  .case-header__inner {
+    max-width: var(--content-width);
+  }
+
+  .case-back {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    display: inline-block;
+    margin-bottom: 2rem;
+    transition: color var(--transition);
+  }
+
+  .case-back:hover {
+    color: var(--accent);
+  }
+
+  .case-sector {
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    max-width: none;
+  }
+
+  .case-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .case-desc {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+    max-width: none;
+  }
+
+  .case-stack {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .case-site-link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--accent);
+    display: inline-block;
+    transition: color var(--transition);
+  }
+
+  .case-site-link:hover {
+    color: var(--accent-light);
+  }
+
+  .case-content {
+    max-width: var(--content-width);
+  }
+
+  .case-content :global(h2) {
+    font-size: 1.75rem;
+    margin-block: 2.5rem 0.75rem;
+  }
+
+  .case-content :global(h3) {
+    font-size: 1.35rem;
+    margin-block: 2rem 0.5rem;
+  }
+
+  .case-content :global(p) {
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    max-width: none;
+  }
+
+  .case-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+    max-width: var(--content-width);
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg);
+  }
+
+  .case-cta__title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .case-cta__text p {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    max-width: none;
+  }
+</style>
