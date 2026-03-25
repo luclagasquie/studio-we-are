@@ -1,0 +1,185 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionTitle from '../components/ui/SectionTitle.astro';
+import Button from '../components/ui/Button.astro';
+
+const categories = [
+  {
+    id: 'paysages',
+    label: 'Paysages',
+    desc: 'Le Lot et ses horizons, les voyages et leurs lumières.',
+    count: 6,
+    aspect: '3/2',
+  },
+  {
+    id: 'voyage',
+    label: 'Voyage',
+    desc: 'Lieux traversés, ambiances rencontrées.',
+    count: 4,
+    aspect: '4/3',
+  },
+  {
+    id: 'reportage',
+    label: 'Reportage',
+    desc: "Portraits d'entreprise, locaux, équipes.",
+    count: 3,
+    aspect: '1/1',
+  },
+];
+---
+<PageLayout
+  title="Photographie — Studio We Are"
+  description="Portfolio photographique de Luc Lagasquie — paysages du Lot, voyage, reportage d'entreprise. Production de contenu visuel sur commande."
+>
+  <!-- Intro -->
+  <section class="section">
+    <div class="container">
+      <SectionTitle
+        label="Photographie"
+        title="Des images pour raconter votre histoire"
+        subtitle="Paysages, voyage et reportage d'entreprise — un regard authentique au service de votre communication."
+      />
+      <p class="photo-intro animate-fade">
+        La photographie est une compétence que j'exerce en parallèle du développement web.
+        Cette double pratique offre quelque chose d'assez rare : un site et les images qui
+        l'illustrent pensés ensemble, depuis le début.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery by category -->
+  {categories.map((cat, ci) => (
+    <section class="section section--alt photo-section">
+      <div class="container">
+        <div class="photo-cat-header animate-fade">
+          <h2 class="photo-cat-title">{cat.label}</h2>
+          <p class="photo-cat-desc">{cat.desc}</p>
+        </div>
+        <div class="photo-grid" style={`--aspect: ${cat.aspect}`}>
+          {Array.from({ length: cat.count }).map((_, i) => (
+            <div
+              class:list={[
+                'photo-item',
+                'animate-slide',
+                i < 6 && `stagger-${i + 1}`,
+              ]}
+            >
+              <div class="photo-placeholder" aria-label={`Photo ${cat.label} ${i + 1}`}>
+                <span class="photo-index">{cat.label.charAt(0)}{i + 1}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Service offer -->
+  <section class="section">
+    <div class="container">
+      <div class="photo-offer animate-slide">
+        <div class="photo-offer__text">
+          <h2>Production de contenu photographique</h2>
+          <p>
+            Vous avez besoin d'images pour votre site, vos réseaux sociaux ou votre communication
+            imprimée ? Je propose des reportages sur commande — portraits, locaux, produits, ambiances.
+          </p>
+          <p>
+            L'avantage : je connais les contraintes d'intégration web. Les images livrées sont
+            optimisées, cadrées pour les usages prévus, prêtes à l'emploi.
+          </p>
+        </div>
+        <div class="photo-offer__cta">
+          <Button href="/contact?objet=photographie" variant="primary" size="lg">
+            Discuter d'un projet photo
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .photo-intro {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 60ch;
+    line-height: 1.8;
+    margin-top: -1rem;
+  }
+
+  .photo-section {
+    padding-block: var(--space-lg);
+  }
+
+  .photo-cat-header {
+    margin-bottom: 2rem;
+  }
+
+  .photo-cat-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: 0.35rem;
+  }
+
+  .photo-cat-desc {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    max-width: none;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .photo-placeholder {
+    aspect-ratio: var(--aspect, 3/2);
+    background: linear-gradient(135deg, var(--border) 0%, var(--bg-alt) 100%);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition);
+    overflow: hidden;
+  }
+
+  .photo-item:hover .photo-placeholder {
+    transform: scale(1.02);
+  }
+
+  .photo-index {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.05em;
+  }
+
+  .photo-offer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    padding: 3rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .photo-offer__text h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .photo-offer__text p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    max-width: none;
+  }
+
+  @media (max-width: 700px) {
+    .photo-offer {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

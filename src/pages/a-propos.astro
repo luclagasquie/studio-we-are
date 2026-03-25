@@ -1,0 +1,320 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionTitle from '../components/ui/SectionTitle.astro';
+import Button from '../components/ui/Button.astro';
+---
+<PageLayout
+  title="À propos — Studio We Are"
+  description="Luc Lagasquie, fondateur de Studio We Are. Plus de 15 ans de développement web, basé dans le Lot. Parcours, valeurs et collaborateurs."
+>
+  <!-- Founder section -->
+  <section class="section">
+    <div class="container about-hero">
+      <div class="about-hero__text animate-slide">
+        <p class="about-eyebrow">Le fondateur</p>
+        <h1>Luc Lagasquie</h1>
+        <p class="about-lead">
+          J'ai créé Studio We Are en 2009, à 17 ans, par passion pour le web.
+          Depuis, j'ai travaillé avec des agences, des graphistes, des PME et des particuliers
+          — en France et à l'international.
+        </p>
+        <p class="about-body">
+          Ce qui n'a pas changé : l'attention portée à chaque projet, la conviction que la
+          technologie doit servir les gens et non l'inverse, et le plaisir de construire des
+          choses qui durent.
+        </p>
+        <p class="about-body">
+          Basé dans le Lot, je travaille à distance sans contrainte géographique. Parmi mes
+          références : des clients en France, en Suisse et au Canada.
+        </p>
+        <ul class="about-values">
+          <li>
+            <strong>L'artisanat</strong> — chaque site est conçu avec soin, dans ses détails.
+          </li>
+          <li>
+            <strong>La proximité</strong> — vous savez à qui vous parlez, qui travaille pour vous.
+          </li>
+          <li>
+            <strong>Le conseil</strong> — l'expertise au service de décisions éclairées.
+          </li>
+        </ul>
+      </div>
+
+      <div class="about-hero__visual animate-fade">
+        <!-- Replace with: <Image src={import('../assets/about/luc.jpg')} alt="Portrait de Luc Lagasquie" ... /> -->
+        <div class="photo-placeholder" aria-label="Portrait de Luc Lagasquie, fondateur de Studio We Are">
+          <span class="photo-initials">LL</span>
+          <p class="photo-caption">Portrait à venir</p>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat__number">15+</span>
+          <span class="about-stat__label">ans d'expérience</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat__number">2009</span>
+          <span class="about-stat__label">année de création</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collaborators -->
+  <section class="section section--alt">
+    <div class="container">
+      <SectionTitle
+        label="Collaborateurs"
+        title="L'équipe qui s'agrandit selon vos besoins"
+        subtitle="Je travaille avec des partenaires de confiance pour les projets qui demandent des compétences complémentaires."
+      />
+      <div class="collaborators">
+        <div class="collab animate-slide stagger-1">
+          <div class="collab__header">
+            <div class="collab__avatar" aria-hidden="true">CA</div>
+            <div>
+              <h3 class="collab__name">Céline Andrieux</h3>
+              <p class="collab__role">Graphiste indépendante</p>
+            </div>
+          </div>
+          <p class="collab__desc">
+            Pour les projets qui demandent une identité visuelle forte, je fais appel à Céline
+            Andrieux. Elle prend en charge la direction artistique, les maquettes et l'identité
+            visuelle — que j'intègre ensuite avec précision dans le code.
+          </p>
+          <p class="collab__desc">
+            <strong>Résultat :</strong> cohérence totale entre le design et la technique.
+            Votre client voit exactement ce que le graphiste a imaginé.
+          </p>
+        </div>
+
+        <div class="collab animate-slide stagger-2">
+          <div class="collab__header">
+            <div class="collab__avatar" aria-hidden="true">EK</div>
+            <div>
+              <h3 class="collab__name">Euré-k !</h3>
+              <p class="collab__role">Agence de communication partenaire</p>
+            </div>
+          </div>
+          <p class="collab__desc">
+            Partenaire technique de longue date, je réalise les développements web pour les
+            projets de l'agence Euré-k ! — intégration de maquettes, WordPress sur-mesure,
+            maintenance et support.
+          </p>
+          <p class="collab__desc">
+            Une collaboration fondée sur la confiance, l'exigence partagée et des années de
+            projets menés ensemble.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container about-cta">
+      <p class="about-cta__text animate-slide">Vous avez un projet ? Travaillons ensemble.</p>
+      <div class="animate-fade stagger-2">
+        <Button href="/contact" variant="primary" size="lg">Prendre contact</Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-eyebrow {
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    max-width: none;
+  }
+
+  .about-hero__text h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .about-lead {
+    font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    max-width: none;
+  }
+
+  .about-body {
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    max-width: none;
+  }
+
+  .about-values {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .about-values li {
+    color: var(--text-muted);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .about-values li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .about-values strong {
+    color: var(--text);
+  }
+
+  .about-hero__visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .photo-placeholder {
+    aspect-ratio: 3/4;
+    background: var(--bg-alt);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+  }
+
+  .photo-initials {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--border);
+  }
+
+  .photo-caption {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    max-width: none;
+  }
+
+  .about-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .about-stat__number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .about-stat__label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .collaborators {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .collab {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .collab__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .collab__avatar {
+    width: 3rem;
+    height: 3rem;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+
+  .collab__name {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .collab__role {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    max-width: none;
+  }
+
+  .collab__desc {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  .about-cta {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .about-cta__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    max-width: none;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .about-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .about-hero__visual {
+      display: none;
+    }
+
+    .collaborators {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
