@@ -1,0 +1,114 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import ServicesGrid from '../components/home/ServicesGrid.astro';
+import ClientLogos from '../components/home/ClientLogos.astro';
+import CtaSection from '../components/home/CtaSection.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Studio We Are',
+  description:
+    "Création de sites web artisanaux depuis 2009. Développement web sur-mesure, conseil stratégique, photographie.",
+  foundingDate: '2009',
+  founder: {
+    '@type': 'Person',
+    name: 'Luc Lagasquie',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '220 chemin du Bartassou',
+    addressLocality: 'Sérignac',
+    postalCode: '46700',
+    addressCountry: 'FR',
+  },
+  url: 'https://studioweare.fr',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    email: 'luc@studioweare.fr',
+  },
+  areaServed: ['France', 'Canada', 'Suisse'],
+  knowsAbout: ['WordPress', 'Astro', 'WooCommerce', 'Shopify', 'Développement web', 'SEO'],
+};
+---
+<PageLayout
+  title="Studio We Are — Création de sites web artisanaux"
+  description="Développement web sur-mesure depuis 2009 — sites vitrine, WordPress, Astro, e-commerce. Basé dans le Lot, intervention nationale et internationale."
+  jsonLd={jsonLd}
+>
+  <Hero />
+
+  <!-- Introduction -->
+  <section class="section intro" id="intro">
+    <div class="container">
+      <div class="intro__text animate-slide">
+        <p class="intro__eyebrow">L'humain derrière We Are</p>
+        <p class="intro__lead">
+          Je m'appelle Luc Lagasquie. Depuis 2009 — au sortir du lycée — je construis des sites
+          web pour des entreprises, des artistes, des associations et des agences.
+          Pas des templates remplis : des sites pensés, discutés, faits à la main.
+        </p>
+        <p class="intro__body">
+          Quinze ans de métier, c'est une compréhension fine des technologies, mais aussi de ce
+          qui fait qu'un site travaille vraiment pour son propriétaire.
+        </p>
+        <a href="/a-propos" class="intro__link">
+          En savoir plus sur Studio We Are <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ServicesGrid />
+  <ClientLogos />
+  <CtaSection />
+</PageLayout>
+
+<style>
+  .intro__text {
+    max-width: var(--content-width);
+  }
+
+  .intro__eyebrow {
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    max-width: none;
+  }
+
+  .intro__lead {
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 300;
+    max-width: none;
+  }
+
+  .intro__body {
+    color: var(--text-muted);
+    font-size: 1.0625rem;
+    margin-bottom: 2rem;
+    max-width: none;
+  }
+
+  .intro__link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    transition: gap var(--transition);
+  }
+
+  .intro__link:hover {
+    gap: 0.6em;
+  }
+</style>

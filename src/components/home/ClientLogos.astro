@@ -1,0 +1,67 @@
+---
+import clients from '../../data/clients.json';
+---
+<section class="section section--alt client-logos">
+  <div class="container">
+    <p class="logos-label animate-fade">Ils nous font confiance</p>
+    <ul class="logos-list" role="list">
+      {clients.map((c, i) => (
+        <li class:list={['logos-item', 'animate-fade', i < 6 && `stagger-${i + 1}`]}>
+          {c.url
+            ? (
+              <a
+                href={c.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="logos-name logos-name--link"
+              >
+                {c.name}
+              </a>
+            )
+            : (
+              <span class="logos-name">{c.name}</span>
+            )
+          }
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .client-logos {
+    padding-block: var(--space-lg);
+  }
+
+  .logos-label {
+    text-align: center;
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: none;
+    font-weight: 500;
+  }
+
+  .logos-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem 5rem;
+  }
+
+  .logos-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+    transition: opacity var(--transition);
+  }
+
+  .logos-name--link:hover {
+    opacity: 1;
+    color: var(--accent);
+  }
+</style>

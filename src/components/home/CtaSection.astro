@@ -1,0 +1,42 @@
+---
+import Button from '../ui/Button.astro';
+---
+<section class="section section--dark cta-section">
+  <div class="container cta-inner">
+    <h2 class="cta-title animate-slide">Parlons de votre projet</h2>
+    <p class="cta-sub animate-fade stagger-2">
+      Un site web réfléchi, construit avec soin — prenons le temps d'échanger sur vos besoins.
+    </p>
+    <div class="animate-fade stagger-3">
+      <Button href="/contact" variant="primary" size="lg">Nous contacter</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding-block: clamp(4rem, 10vw, 10rem);
+  }
+
+  .cta-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .cta-title {
+    color: var(--text-inv);
+    font-size: clamp(2rem, 5vw, 4rem);
+    max-width: 18ch;
+  }
+
+  .cta-sub {
+    color: rgba(240, 237, 232, 0.65);
+    font-size: 1.125rem;
+    max-width: 48ch;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+</style>
