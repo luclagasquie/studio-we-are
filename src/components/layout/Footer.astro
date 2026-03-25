@@ -1,0 +1,148 @@
+---
+const year = new Date().getFullYear();
+
+const navLinks = [
+  { href: '/services', label: 'Services' },
+  { href: '/realisations', label: 'Réalisations' },
+  { href: '/a-propos', label: 'À propos' },
+  { href: '/photographie', label: 'Photographie' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const legalLinks = [
+  { href: '/mentions-legales', label: 'Mentions légales' },
+  { href: '/politique-confidentialite', label: 'Politique de confidentialité' },
+];
+---
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a href="/" class="footer__logo" aria-label="Studio We Are — Accueil">
+        <span class="logo-italic">Studio</span> We Are
+      </a>
+      <p class="footer__tagline">Création de sites web artisanaux depuis 2009.</p>
+      <p class="footer__location">Lot, France — Rayonnement national &amp; international</p>
+      <a href="mailto:luc@studioweare.fr" class="footer__email">luc@studioweare.fr</a>
+    </div>
+
+    <nav class="footer__nav" aria-label="Navigation principale secondaire">
+      <p class="footer__nav-label">Navigation</p>
+      <ul role="list">
+        {navLinks.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="footer__nav" aria-label="Navigation légale">
+      <p class="footer__nav-label">Légal</p>
+      <ul role="list">
+        {legalLinks.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; {year} Studio We Are — SIRET 512&thinsp;352&thinsp;485&thinsp;00050</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--bg-dark);
+    color: var(--text-inv);
+    padding-top: var(--space-lg);
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: var(--space-lg);
+  }
+
+  .footer__logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--text-inv);
+  }
+
+  .logo-italic {
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(240, 237, 232, 0.6);
+  }
+
+  .footer__tagline {
+    color: rgba(240, 237, 232, 0.6);
+    font-size: 0.9375rem;
+    margin-bottom: 0.35rem;
+    max-width: none;
+  }
+
+  .footer__location {
+    color: rgba(240, 237, 232, 0.4);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    max-width: none;
+  }
+
+  .footer__email {
+    font-size: 0.9375rem;
+    color: var(--accent-light);
+    transition: color var(--transition);
+  }
+
+  .footer__email:hover {
+    color: var(--text-inv);
+  }
+
+  .footer__nav-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(240, 237, 232, 0.35);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    max-width: none;
+  }
+
+  .footer__nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer__nav a {
+    color: rgba(240, 237, 232, 0.55);
+    font-size: 0.9375rem;
+    transition: color var(--transition);
+  }
+
+  .footer__nav a:hover {
+    color: var(--text-inv);
+  }
+
+  .footer__bottom {
+    padding-block: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .footer__bottom p {
+    font-size: 0.8125rem;
+    color: rgba(240, 237, 232, 0.25);
+    max-width: none;
+  }
+
+  @media (max-width: 768px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>
