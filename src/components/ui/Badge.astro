@@ -1,0 +1,23 @@
+---
+export interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+<span class="badge">{label}</span>
+
+<style>
+  .badge {
+    display: inline-block;
+    padding: 0.2em 0.75em;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+  }
+</style>
