@@ -1,0 +1,41 @@
+---
+import SectionTitle from '../ui/SectionTitle.astro';
+import ServiceCard from './ServiceCard.astro';
+import Button from '../ui/Button.astro';
+import services from '../../data/services.json';
+---
+<section class="section" id="services">
+  <div class="container">
+    <SectionTitle
+      label="Ce que nous faisons"
+      title="Des compétences au service de votre projet"
+      subtitle="Du site vitrine au e-commerce complexe — nous choisissons la solution juste, pas la plus impressionnante."
+    />
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <ServiceCard
+          title={s.title}
+          tagline={s.tagline}
+          icon={s.icon}
+          stagger={Math.min(i + 1, 6)}
+        />
+      ))}
+    </div>
+    <div class="services-cta animate-fade stagger-4">
+      <Button href="/services" variant="outline">Voir tous les services</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .services-cta {
+    text-align: center;
+  }
+</style>

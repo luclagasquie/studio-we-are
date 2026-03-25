@@ -1,0 +1,118 @@
+---
+import Button from '../ui/Button.astro';
+---
+<section class="hero" aria-label="Section principale">
+  <div class="hero__bg" role="img" aria-label="Paysage du Lot"></div>
+  <div class="container hero__content">
+    <p class="hero__eyebrow hero-animate">Création de sites web artisanaux</p>
+    <h1 class="hero__title hero-animate">
+      Des sites qui<br /><em>travaillent pour vous.</em>
+    </h1>
+    <p class="hero__subtitle hero-animate">
+      Studio indépendant fondé en 2009 &mdash; développement web sur-mesure,
+      conseil stratégique et contenu photographique.
+    </p>
+    <div class="hero__actions hero-animate">
+      <Button href="#services" variant="primary" size="lg">Découvrir nos services</Button>
+      <Button href="/contact" variant="outline" size="lg">Prendre contact</Button>
+    </div>
+  </div>
+  <div class="hero__scroll" aria-hidden="true">
+    <svg width="20" height="40" viewBox="0 0 20 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="10" y1="7" x2="10" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M5 34l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: clamp(3rem, 8vw, 8rem);
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(15, 12, 9, 0.2) 0%,
+        rgba(15, 12, 9, 0.5) 60%,
+        rgba(15, 12, 9, 0.82) 100%
+      ),
+      /* Replace with real hero image: url('/assets/hero/paysage-lot.jpg') */
+      linear-gradient(155deg, #2a1f14 0%, #3d2c1a 35%, #1e150c 60%, #0e0a06 100%);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    color: #f0ede8;
+    padding-top: var(--space-xl);
+  }
+
+  .hero__eyebrow {
+    font-size: 0.8125rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 1.75rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    max-width: none;
+  }
+
+  .hero__title {
+    font-size: clamp(3rem, 7.5vw, 7.5rem);
+    color: #f0ede8;
+    margin-bottom: 1.5rem;
+    max-width: 14ch;
+    line-height: 1.1;
+  }
+
+  .hero__title em {
+    font-style: italic;
+    color: var(--accent-light);
+  }
+
+  .hero__subtitle {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: rgba(240, 237, 232, 0.72);
+    margin-bottom: 2.5rem;
+    max-width: 52ch;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    right: var(--gutter);
+    color: rgba(240, 237, 232, 0.35);
+    animation: scrollBounce 2.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll {
+      animation: none;
+    }
+  }
+</style>
