@@ -1,0 +1,58 @@
+---
+const links = [
+  { href: '/services', label: 'Services' },
+  { href: '/realisations', label: 'Réalisations' },
+  { href: '/a-propos', label: 'À propos' },
+  { href: '/photographie', label: 'Photographie' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const current = Astro.url.pathname;
+---
+<nav class="nav" aria-label="Navigation principale">
+  <ul class="nav__list" role="list">
+    {links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class:list={['nav__link', current.startsWith(link.href) && 'nav__link--active']}
+          aria-current={current.startsWith(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav__link {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    transition: color var(--transition);
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav__link:hover,
+  .nav__link--active {
+    color: var(--text);
+  }
+
+  .nav__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: var(--accent);
+  }
+</style>

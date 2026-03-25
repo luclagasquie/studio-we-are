@@ -1,0 +1,177 @@
+---
+import Navigation from './Navigation.astro';
+import ThemeToggle from '../ui/ThemeToggle.astro';
+import Button from '../ui/Button.astro';
+---
+<header class="header" id="site-header">
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <div class="container header__inner">
+    <a href="/" class="header__logo" aria-label="Studio We Are — Retour à l'accueil">
+      <span class="logo-studio">Studio</span>
+      <span class="logo-weare">We Are</span>
+    </a>
+
+    <!-- CSS-only mobile menu via checkbox -->
+    <input type="checkbox" id="menu-toggle" class="menu-checkbox" aria-hidden="true" />
+    <label for="menu-toggle" class="menu-burger" aria-label="Ouvrir le menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="header__nav">
+      <Navigation />
+      <div class="header__actions">
+        <ThemeToggle />
+        <Button href="/contact" variant="outline" size="sm">Parlons-en</Button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    z-index: 200;
+    transition: top var(--transition);
+  }
+
+  .skip-link:focus {
+    top: 0;
+    outline: none;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    height: 4.5rem;
+  }
+
+  .header__logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.3em;
+    flex-shrink: 0;
+  }
+
+  .logo-studio {
+    font-weight: 300;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .logo-weare {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Hide checkbox */
+  .menu-checkbox {
+    display: none;
+  }
+
+  /* Hide burger on desktop */
+  .menu-burger {
+    display: none;
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 900px) {
+    .menu-burger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 110;
+      padding: 0.5rem;
+      order: 3;
+    }
+
+    .menu-burger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Animated to X when checked */
+    .menu-checkbox:checked ~ .menu-burger span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .menu-checkbox:checked ~ .menu-burger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-checkbox:checked ~ .menu-burger span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    .header__nav {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .header__nav :global(.nav__list) {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .header__nav :global(.nav__link) {
+      font-size: 1.5rem;
+      font-family: var(--font-display);
+    }
+
+    .menu-checkbox:checked ~ .header__nav {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+</style>
