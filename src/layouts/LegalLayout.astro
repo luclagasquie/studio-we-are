@@ -1,0 +1,61 @@
+---
+import PageLayout from './PageLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = title } = Astro.props;
+---
+<PageLayout title={title} description={description}>
+  <section class="container section legal-section">
+    <div class="legal-prose">
+      <slot />
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .legal-section {
+    padding-block: var(--space-xl);
+  }
+
+  .legal-prose {
+    max-width: var(--content-width);
+    margin-inline: auto;
+  }
+
+  .legal-prose :global(h1) {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 2.5rem;
+  }
+
+  .legal-prose :global(h2) {
+    font-size: 1.6rem;
+    margin-block: 2.5rem 0.75rem;
+  }
+
+  .legal-prose :global(h3) {
+    font-size: 1.25rem;
+    margin-block: 2rem 0.5rem;
+  }
+
+  .legal-prose :global(p),
+  .legal-prose :global(ul),
+  .legal-prose :global(ol) {
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+    max-width: none;
+  }
+
+  .legal-prose :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .legal-prose :global(strong) {
+    color: var(--text);
+    font-weight: 500;
+  }
+</style>
