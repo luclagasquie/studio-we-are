@@ -1,0 +1,44 @@
+[
+  {
+    "id": "vitrine",
+    "title": "Site vitrine",
+    "tagline": "Votre meilleure carte de visite en ligne, pensée pour convaincre.",
+    "icon": "monitor"
+  },
+  {
+    "id": "ecommerce",
+    "title": "E-commerce",
+    "tagline": "WooCommerce ou Shopify — vendre en ligne, simplement et efficacement.",
+    "icon": "shopping-bag"
+  },
+  {
+    "id": "wordpress",
+    "title": "WordPress sur-mesure",
+    "tagline": "Bricks ou Etch — un site que vous gérez vous-même, sans dépendance.",
+    "icon": "layout"
+  },
+  {
+    "id": "astro",
+    "title": "Site Astro / Headless",
+    "tagline": "Performance maximale, zéro compromis sur la rapidité.",
+    "icon": "zap"
+  },
+  {
+    "id": "maintenance",
+    "title": "Maintenance & support",
+    "tagline": "Votre site entre de bonnes mains — mises à jour, sécurité, sérénité.",
+    "icon": "shield"
+  },
+  {
+    "id": "conseil",
+    "title": "Conseil & accompagnement",
+    "tagline": "Choisir la bonne solution plutôt que la plus complexe.",
+    "icon": "message-circle"
+  },
+  {
+    "id": "photo",
+    "title": "Photographie & contenu",
+    "tagline": "Des images authentiques pour illustrer votre identité.",
+    "icon": "camera"
+  }
+]
