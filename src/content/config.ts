@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 
 const projets = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projets' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     slug: z.string(),
     description: z.string(),
@@ -11,7 +11,8 @@ const projets = defineCollection({
     type: z.enum(['vitrine', 'e-commerce', 'wordpress', 'astro', 'headless']),
     stack: z.array(z.string()),
     url: z.string().url().optional(),
-    image: z.string().optional(),
+    image: image().optional(),
+    logo: image().optional(),
     draft: z.boolean().default(false),
     date: z.string(),
   }),

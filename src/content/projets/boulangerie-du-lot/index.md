@@ -5,7 +5,6 @@ description: "Site vitrine pour une boulangerie artisanale : présentation des p
 secteur: "Artisanat / Commerce"
 type: "vitrine"
 stack: ["Astro", "Cloudflare Pages"]
-image: ""
 draft: false
 date: "2024-03"
 ---

@@ -27,25 +27,40 @@ const objetOptions = [
       <div class="contact-info animate-slide stagger-1">
         <SectionTitle
           label="Contact"
+          labelTag="h1"
           title="Parlons de votre projet"
-          subtitle="Je réponds sous 48h en semaine."
+          subtitle="Je réponds rapidement."
         />
         <dl class="contact-details">
           <div class="contact-item">
-            <dt>Email</dt>
-            <dd><a href="mailto:luc@studioweare.fr">luc@studioweare.fr</a></dd>
+            <dt>
+              <svg class="contact-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              Email
+            </dt>
+            <dd><a href="mailto:luc@studioweare.fr">luc@we-are.fr</a></dd>
           </div>
           <div class="contact-item">
-            <dt>Localisation</dt>
-            <dd>Lot (46), France</dd>
+            <dt>
+              <svg class="contact-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              Localisation
+            </dt>
+            <dd>Sérignac & Sauliac-sur-Célé,<br>Département du Lot</dd>
           </div>
           <div class="contact-item">
-            <dt>Périmètre</dt>
-            <dd>France entière, international (Canada, Suisse)</dd>
-          </div>
-          <div class="contact-item">
-            <dt>Délai de réponse</dt>
-            <dd>Sous 48h en semaine</dd>
+            <dt>
+              <svg class="contact-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              Périmètre
+            </dt>
+            <dd>France & international,<br>je parle français et anglais 🇫🇷 🇬🇧</dd>
           </div>
         </dl>
         <p class="contact-note">
@@ -151,7 +166,7 @@ const objetOptions = [
               ></textarea>
             </div>
 
-            <button type="submit" class="form-submit">
+            <button type="submit" class="form-submit btn-sm">
               Envoyer le message
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="22" y1="2" x2="11" y2="13"/>
@@ -160,6 +175,7 @@ const objetOptions = [
             </button>
           </form>
         )}
+        
       </div>
     </div>
   </section>
@@ -186,12 +202,20 @@ const objetOptions = [
   }
 
   .contact-item dt {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-muted);
     font-weight: 500;
     margin-bottom: 0.2rem;
+  }
+
+  .contact-icon {
+    flex-shrink: 0;
+    color: var(--accent);
   }
 
   .contact-item dd {
@@ -220,10 +244,18 @@ const objetOptions = [
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
+  /* Form wrap — bordered frame */
+  .contact-form-wrap {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: var(--space-lg);
+  }
+
   /* Form */
   .contact-form {
     display: flex;
     flex-direction: column;
+    align-self: center;
     gap: 1.5rem;
   }
 
@@ -290,7 +322,7 @@ const objetOptions = [
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.875rem 2.5rem;
+    padding: 0.75em 1.25em;
     background: var(--accent);
     color: #fff;
     font-family: var(--font-body);

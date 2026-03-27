@@ -34,11 +34,5 @@
     "title": "Conseil & accompagnement",
     "tagline": "Choisir la bonne solution plutôt que la plus complexe.",
     "icon": "message-circle"
-  },
-  {
-    "id": "photo",
-    "title": "Photographie & contenu",
-    "tagline": "Des images authentiques pour illustrer votre identité.",
-    "icon": "camera"
   }
 ]

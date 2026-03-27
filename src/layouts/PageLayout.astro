@@ -8,14 +8,22 @@ export interface Props {
   description: string;
   image?: string;
   jsonLd?: object;
+  overlayHeader?: boolean;
 }
 
-const props = Astro.props;
+const { overlayHeader = false, ...rest } = Astro.props;
 ---
-<BaseLayout {...props}>
-  <Header />
-  <main id="main-content">
+<BaseLayout {...rest}>
+  <Header transparent={overlayHeader} />
+  <main id="main-content" class:list={[!overlayHeader && 'main--offset']}>
     <slot />
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  /* Compensate for fixed header on pages that don't overlay it */
+  .main--offset {
+    padding-top: 4.5rem;
+  }
+</style>

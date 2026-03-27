@@ -1,11 +1,10 @@
 ---
-title: "Association Paysages du Lot"
-slug: "association-paysages"
+title: "Projet 2"
+slug: "projet-2"
 description: "Site associatif avec agenda des événements, galerie photo et formulaire d'adhésion."
 secteur: "Culture / Associatif"
 type: "wordpress"
 stack: ["WordPress", "Bricks", "WooCommerce"]
-image: ""
 draft: true
 date: "2024-11"
 ---

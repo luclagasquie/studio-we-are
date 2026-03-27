@@ -6,7 +6,6 @@ secteur: "Communication"
 type: "wordpress"
 stack: ["WordPress", "Bricks", "ACF"]
 url: "https://eurek.fr"
-image: ""
 draft: false
 date: "2023-09"
 ---

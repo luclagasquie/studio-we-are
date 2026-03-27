@@ -11,12 +11,19 @@
 }
 
 /* Visible state — .is-visible added by IntersectionObserver */
+/* Using longhand so animation-delay from .stagger-N classes is not overridden */
 .is-visible.animate-fade {
-  animation: fadeIn 0.55s ease-out forwards;
+  animation-name: fadeIn;
+  animation-duration: 0.55s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
 }
 
 .is-visible.animate-slide {
-  animation: slideUp 0.55s ease-out forwards;
+  animation-name: slideUp;
+  animation-duration: 0.55s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
 }
 
 /* Stagger delays for grid/list items */
@@ -26,6 +33,9 @@
 .stagger-4 { animation-delay: 0.32s; }
 .stagger-5 { animation-delay: 0.40s; }
 .stagger-6 { animation-delay: 0.48s; }
+.stagger-7 { animation-delay: 0.56s; }
+.stagger-8 { animation-delay: 0.64s; }
+.stagger-9 { animation-delay: 0.72s; }
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -53,6 +63,38 @@
 .hero-animate:nth-child(3) { animation-delay: 0.30s; }
 .hero-animate:nth-child(4) { animation-delay: 0.45s; }
 
+/* ===== VIEW TRANSITIONS ===== */
+
+/* Page sortante : légère translation vers le haut + fondu */
+::view-transition-old(root) {
+  animation: 0.25s ease-in both vt-fade-out;
+}
+
+/* Page entrante : glisse depuis le bas + fondu */
+::view-transition-new(root) {
+  animation: 0.35s ease-out both vt-fade-in;
+}
+
+/* Header : swap instantané — l'ancien disparaît immédiatement, le nouveau s'affiche tout de suite */
+::view-transition-old(site-header) {
+  animation: none;
+  opacity: 0;
+}
+::view-transition-new(site-header) {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes vt-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== PREFERS REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade,
@@ -63,5 +105,10 @@
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }

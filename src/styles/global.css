@@ -54,6 +54,7 @@
   padding: 0;
 }
 
+
 img,
 video {
   max-width: 100%;
@@ -105,11 +106,11 @@ h4 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-size: clamp(3rem, 8vw, 8rem);
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
 }
 
 h3 {
@@ -145,9 +146,24 @@ p {
   background-color: var(--bg-alt);
 }
 
+/* Ligne décorative éditoriale */
+.rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  border: none;
+  margin: 0;
+}
+
 /* ===== FOCUS ===== */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
