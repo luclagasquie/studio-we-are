@@ -2,9 +2,18 @@
 import Navigation from './Navigation.astro';
 import ThemeToggle from '../ui/ThemeToggle.astro';
 import Button from '../ui/Button.astro';
+
+interface Props {
+  transparent?: boolean;
+}
+const { transparent = false } = Astro.props;
 ---
-<header class="header" id="site-header">
-  <!-- Skip to main content for accessibility -->
+
+<header
+  class="header"
+  id="site-header"
+  data-transparent={transparent ? '' : undefined}
+>
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
   <div class="container header__inner">
@@ -13,25 +22,136 @@ import Button from '../ui/Button.astro';
       <span class="logo-weare">We Are</span>
     </a>
 
-    <!-- CSS-only mobile menu via checkbox -->
-    <input type="checkbox" id="menu-toggle" class="menu-checkbox" aria-hidden="true" />
-    <label for="menu-toggle" class="menu-burger" aria-label="Ouvrir le menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-
-    <div class="header__nav">
+    <!-- Desktop navigation (hidden on mobile) -->
+    <div class="header__desktop-nav">
       <Navigation />
-      <div class="header__actions">
-        <ThemeToggle />
-        <Button href="/contact" variant="outline" size="sm">Parlons-en</Button>
+    </div>
+
+    <!-- Right-side controls -->
+    <div class="header__right">
+      <div class="header__cta-wrap">
+        <Button href="/contact" variant="outline" size="sm">Contact</Button>
       </div>
+      <ThemeToggle />
+      <button
+        class="menu-burger"
+        id="menu-btn"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="site-mobile-nav"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 </header>
 
+<!--
+  Mobile nav overlay — intentionally OUTSIDE the <header> element.
+  If nested inside the header (which has z-index: 100 = stacking context),
+  a position:fixed child cannot escape that stacking context to cover the
+  full viewport. As a sibling, it lives in the root stacking context and
+  can be placed at any z-index freely.
+-->
+<div
+  class="mobile-nav"
+  id="site-mobile-nav"
+  aria-hidden="true"
+  aria-label="Menu de navigation mobile"
+>
+  <nav class="mobile-nav__nav" aria-label="Navigation principale mobile">
+    <ul class="mobile-nav__list" role="list">
+      <li><a class="mobile-nav__link" href="/prestations">Prestations</a></li>
+      <li><a class="mobile-nav__link" href="/projets">Projets</a></li>
+      <li><a class="mobile-nav__link" href="/a-propos">À propos</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-nav__actions">
+    <Button href="/contact" variant="outline" size="md">Contact</Button>
+  </div>
+</div>
+
+<script>
+  // The Header module is cached by Astro's ClientRouter and NOT re-executed
+  // on subsequent navigations. All DOM-dependent setup is therefore wrapped
+  // in initHeader(), which is called by astro:page-load — an event that fires
+  // on both the initial page load AND every ClientRouter navigation.
+  // AbortController lets us cleanly tear down stale listeners before each
+  // re-init so we never accumulate duplicates or hold references to detached
+  // DOM elements.
+
+  let _ctrl: AbortController | null = null;
+
+  function initHeader() {
+    _ctrl?.abort();
+    _ctrl = new AbortController();
+    const { signal } = _ctrl;
+
+    const btn = document.getElementById('menu-btn') as HTMLButtonElement | null;
+    const header = document.getElementById('site-header');
+    const mobileNav = document.getElementById('site-mobile-nav');
+
+    // ── Mobile menu ───────────────────────────────────────────────────────────
+    function closeMenu() {
+      if (!btn || !header || !mobileNav) return;
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Ouvrir le menu');
+      header.classList.remove('menu-open');
+      mobileNav.classList.remove('is-open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function openMenu() {
+      if (!btn || !header || !mobileNav) return;
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Fermer le menu');
+      header.classList.add('menu-open');
+      mobileNav.classList.add('is-open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (btn && header && mobileNav) {
+      btn.addEventListener('click', () => {
+        const isOpen = header.classList.contains('menu-open');
+        isOpen ? closeMenu() : openMenu();
+      }, { signal });
+
+      mobileNav.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeMenu, { signal });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && header.classList.contains('menu-open')) {
+          closeMenu();
+          btn.focus();
+        }
+      }, { signal });
+    }
+
+    // ── Transparent → opaque on scroll ───────────────────────────────────────
+    if (header) {
+      // On the home page (transparent hero), wait until the user has scrolled
+      // ~55 % of the viewport height before revealing the opaque background.
+      // On all other pages the header is always opaque so the threshold is low.
+      const threshold = header.hasAttribute('data-transparent')
+        ? window.innerHeight * 0.15
+        : 40;
+      const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > threshold);
+      window.addEventListener('scroll', onScroll, { passive: true, signal });
+      onScroll(); // apply correct state immediately (e.g. page reloaded mid-scroll)
+    }
+  }
+
+  // astro:page-load fires on initial load AND after every ClientRouter swap
+  document.addEventListener('astro:page-load', initHeader);
+</script>
+
 <style>
+  /* ===== SKIP LINK ===== */
   .skip-link {
     position: absolute;
     top: -100%;
@@ -45,20 +165,41 @@ import Button from '../ui/Button.astro';
     z-index: 200;
     transition: top var(--transition);
   }
-
   .skip-link:focus {
     top: 0;
     outline: none;
   }
 
+  /* ===== HEADER BAR ===== */
   .header {
-    position: sticky;
+    view-transition-name: site-header;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    /* backdrop-filter is safe here now — no fixed children inside the header */
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
+    transition:
+      background 0.45s ease,
+      border-color 0.45s ease,
+      backdrop-filter 0.45s ease;
+  }
+
+  /* Raise header above mobile nav overlay when menu is open */
+  .header.menu-open {
+    z-index: 160;
+  }
+
+  /* Transparent state — no background, no border */
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: transparent;
   }
 
   .header__inner {
@@ -69,6 +210,7 @@ import Button from '../ui/Button.astro';
     height: 4.5rem;
   }
 
+  /* ===== LOGO ===== */
   .header__logo {
     font-family: var(--font-display);
     font-size: 1.4rem;
@@ -80,98 +222,171 @@ import Button from '../ui/Button.astro';
 
   .logo-studio {
     font-weight: 300;
-    color: var(--text-muted);
     font-style: italic;
+    color: var(--text-muted);
+    transition: color 0.4s ease;
   }
 
   .logo-weare {
     font-weight: 600;
     color: var(--text);
+    transition: color 0.4s ease;
   }
 
-  .header__nav {
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) .logo-studio {
+    color: rgba(240, 237, 232, 0.5);
+  }
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) .logo-weare {
+    color: #f0ede8;
+  }
+
+  /* ===== DESKTOP NAV ===== */
+  .header__desktop-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.nav__link) {
+    color: rgba(240, 237, 232, 0.6);
+  }
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.nav__link:hover),
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.nav__link--active) {
+    color: rgba(240, 237, 232, 0.95);
+  }
+
+  /* ===== RIGHT CONTROLS ===== */
+  .header__right {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 0.75rem;
+    flex-shrink: 0;
   }
 
-  .header__actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.btn--outline) {
+    color: rgba(240, 237, 232, 0.8);
+    border-color: rgba(240, 237, 232, 0.3);
+  }
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.btn--outline:hover) {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
   }
 
-  /* Hide checkbox */
-  .menu-checkbox {
-    display: none;
+  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.theme-toggle) {
+    color: rgba(240, 237, 232, 0.6);
   }
 
-  /* Hide burger on desktop */
+  /* ===== BURGER — hidden on desktop ===== */
   .menu-burger {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+  }
+
+  .menu-burger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.4s ease;
   }
 
   /* ===== MOBILE ===== */
   @media (max-width: 900px) {
+    .header__desktop-nav {
+      display: none;
+    }
+
+    .header__cta-wrap {
+      display: none;
+    }
+
     .menu-burger {
       display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      z-index: 110;
-      padding: 0.5rem;
-      order: 3;
     }
 
-    .menu-burger span {
-      display: block;
-      width: 24px;
-      height: 1.5px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    /* Animated to X when checked */
-    .menu-checkbox:checked ~ .menu-burger span:nth-child(1) {
+    /* Burger → × animation */
+    .header.menu-open .menu-burger span:nth-child(1) {
       transform: translateY(6.5px) rotate(45deg);
     }
-
-    .menu-checkbox:checked ~ .menu-burger span:nth-child(2) {
+    .header.menu-open .menu-burger span:nth-child(2) {
       opacity: 0;
     }
-
-    .menu-checkbox:checked ~ .menu-burger span:nth-child(3) {
+    .header.menu-open .menu-burger span:nth-child(3) {
       transform: translateY(-6.5px) rotate(-45deg);
     }
 
-    .header__nav {
+    /* Light burger on transparent hero */
+    .header[data-transparent]:not(.is-scrolled):not(.menu-open) .menu-burger span {
+      background: rgba(240, 237, 232, 0.8);
+    }
+  }
+
+  /* ===== MOBILE NAV OVERLAY =====
+     Lives in the ROOT stacking context (sibling of header),
+     so z-index is compared against header (100) directly.
+     z-index: 150 ensures it appears above the header bar too,
+     which is correct — the overlay should cover everything.
+  ===== */
+  .mobile-nav {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .mobile-nav {
+      display: flex;
       position: fixed;
       inset: 0;
+      z-index: 150;
       background: var(--bg);
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 2.5rem;
+      gap: 3rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateY(-8px);
     }
 
-    .header__nav :global(.nav__list) {
+    .mobile-nav.is-open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .mobile-nav__list {
+      display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2rem;
     }
 
-    .header__nav :global(.nav__link) {
-      font-size: 1.5rem;
+    .mobile-nav__link {
+      font-size: clamp(1.75rem, 6vw, 2.5rem);
       font-family: var(--font-display);
+      font-weight: 300;
+      color: var(--text-muted);
+      transition: color var(--transition);
+      letter-spacing: -0.01em;
     }
 
-    .menu-checkbox:checked ~ .header__nav {
-      opacity: 1;
-      pointer-events: all;
+    .mobile-nav__link:hover {
+      color: var(--text);
+    }
+
+    .mobile-nav__actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 </style>

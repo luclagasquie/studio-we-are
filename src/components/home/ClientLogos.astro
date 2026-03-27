@@ -1,67 +1,151 @@
 ---
 import clients from '../../data/clients.json';
+
+// Repeat items so the track overflows any viewport width
+const REPEATS = 6;
+const group = Array.from({ length: REPEATS }, () => clients).flat();
 ---
-<section class="section section--alt client-logos">
-  <div class="container">
-    <p class="logos-label animate-fade">Ils nous font confiance</p>
-    <ul class="logos-list" role="list">
-      {clients.map((c, i) => (
-        <li class:list={['logos-item', 'animate-fade', i < 6 && `stagger-${i + 1}`]}>
-          {c.url
-            ? (
-              <a
-                href={c.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="logos-name logos-name--link"
-              >
-                {c.name}
-              </a>
-            )
-            : (
-              <span class="logos-name">{c.name}</span>
-            )
-          }
-        </li>
-      ))}
-    </ul>
+
+<section class="client-logos">
+  <div class="logos-outer" aria-hidden="true">
+    <div class="logos-track">
+      <!-- Original group -->
+      <ul class="logos-group" role="list">
+        {group.map((c) => (
+          <li class="logos-item">
+            {c.logo
+              ? <img src={c.logo} alt={c.name} class="logos-logo" width="120" height="40" loading="lazy" />
+              : <span class="logos-name">{c.name}</span>
+            }
+          </li>
+        ))}
+      </ul>
+      <!-- Duplicate group for seamless loop -->
+      <ul class="logos-group" role="list" aria-hidden="true">
+        {group.map((c) => (
+          <li class="logos-item">
+            {c.logo
+              ? <img src={c.logo} alt="" class="logos-logo" width="120" height="40" loading="lazy" />
+              : <span class="logos-name">{c.name}</span>
+            }
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
   .client-logos {
-    padding-block: var(--space-lg);
+    background-color: var(--bg-alt);
+    padding-block: var(--space-xl);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
   }
 
-  .logos-label {
-    text-align: center;
-    font-size: 0.8125rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-    max-width: none;
-    font-weight: 500;
+  /* Clips the scrolling track and applies edge fades */
+  .logos-outer {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
   }
 
-  .logos-list {
+  /* The animated container — holds two identical groups side by side */
+  .logos-track {
     display: flex;
-    justify-content: center;
+    width: max-content;
+    animation: marquee-scroll 90s linear infinite;
+    will-change: transform;
+  }
+
+  .logos-outer:hover .logos-track {
+    animation-play-state: paused;
+  }
+
+  /* Each group is a flex row of items */
+  .logos-group {
+    display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem 5rem;
+    flex-shrink: 0;
+  }
+
+  .logos-item {
+    display: flex;
+    align-items: center;
+    padding-inline: 3rem;
+    position: relative;
+  }
+
+  /* Subtle separator dot between items */
+  .logos-item::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--border);
+    opacity: 0.8;
   }
 
   .logos-name {
     font-family: var(--font-display);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    font-weight: 400;
     color: var(--text-muted);
-    opacity: 0.6;
-    transition: opacity var(--transition);
+    white-space: nowrap;
+    opacity: 0.5;
+    transition: color var(--transition), opacity var(--transition);
   }
 
-  .logos-name--link:hover {
+  .logos-logo {
+    height: 32px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.4;
+    transition: filter var(--transition), opacity var(--transition);
+  }
+
+  .logos-logo:hover {
+    filter: grayscale(0%);
     opacity: 1;
-    color: var(--accent);
+  }
+
+  /* Reduced motion: static centered grid instead */
+  @media (prefers-reduced-motion: reduce) {
+    .logos-track {
+      animation: none !important;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 3rem;
+    }
+
+    .logos-group[aria-hidden="true"] {
+      display: none;
+    }
+
+    .logos-outer {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
   }
 </style>

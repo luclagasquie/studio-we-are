@@ -1,17 +1,19 @@
 ---
 export interface Props {
   label?: string;
+  labelTag?: 'p' | 'h1';
   title: string;
   subtitle?: string;
   align?: 'left' | 'center';
 }
 
-const { label, title, subtitle, align = 'left' } = Astro.props;
+const { label, labelTag = 'p', title, subtitle, align = 'left' } = Astro.props;
+const LabelTag = labelTag;
 ---
 <div class:list={['section-title', align === 'center' && 'section-title--center']}>
-  {label && <p class="section-title__label">{label}</p>}
+  {label && <LabelTag class="section-title__label">{label}</LabelTag>}
   <h2 class="section-title__heading">{title}</h2>
-  {subtitle && <p class="section-title__sub">{subtitle}</p>}
+  {subtitle && <p class="section-title__sub" set:html={subtitle} />}
 </div>
 
 <style>
@@ -39,10 +41,14 @@ const { label, title, subtitle, align = 'left' } = Astro.props;
   }
 
   .section-title__heading {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    max-width: 22ch;
+    line-height: 0.9;
+    font-size: clamp(2.25rem, 5vw, 4rem);
   }
 
   .section-title__sub {
+    margin-top: 1.25rem;
     color: var(--text-muted);
     font-size: 1.125rem;
     font-family: var(--font-body);

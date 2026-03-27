@@ -2,10 +2,9 @@
 const year = new Date().getFullYear();
 
 const navLinks = [
-  { href: '/services', label: 'Services' },
-  { href: '/realisations', label: 'Réalisations' },
+  { href: '/prestations', label: 'Prestations' },
+  { href: '/projets', label: 'Projets' },
   { href: '/a-propos', label: 'À propos' },
-  { href: '/photographie', label: 'Photographie' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -20,9 +19,9 @@ const legalLinks = [
       <a href="/" class="footer__logo" aria-label="Studio We Are — Accueil">
         <span class="logo-italic">Studio</span> We Are
       </a>
-      <p class="footer__tagline">Création de sites web artisanaux depuis 2009.</p>
-      <p class="footer__location">Lot, France — Rayonnement national &amp; international</p>
-      <a href="mailto:luc@studioweare.fr" class="footer__email">luc@studioweare.fr</a>
+      <p class="footer__tagline">Création de sites web artisanaux depuis 2009</p>
+      <p class="footer__location">Lot (46), France — Rayonnement national &amp; international</p>
+      <div class="footer__flags">🇫🇷 🇬🇧</div>
     </div>
 
     <nav class="footer__nav" aria-label="Navigation principale secondaire">
@@ -69,7 +68,7 @@ const legalLinks = [
     font-weight: 400;
     display: block;
     margin-bottom: 1rem;
-    color: var(--text-inv);
+    color: #f0ede8;
   }
 
   .logo-italic {
@@ -88,8 +87,12 @@ const legalLinks = [
   .footer__location {
     color: rgba(240, 237, 232, 0.4);
     font-size: 0.875rem;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
     max-width: none;
+  }
+
+  .footer__flags {
+    margin-bottom: 1rem;
   }
 
   .footer__email {

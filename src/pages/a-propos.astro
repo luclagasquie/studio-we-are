@@ -1,31 +1,30 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import SectionTitle from '../components/ui/SectionTitle.astro';
-import Button from '../components/ui/Button.astro';
+import { Image } from 'astro:assets';
+import portrait from '../assets/about/2024-portrait-lagasquie.jpg';
+import celinePhoto from '../assets/about/celine-andrieu.jpeg';
+import eurekPhoto from '../assets/about/eure-k.jpeg';
 ---
 <PageLayout
   title="À propos — Studio We Are"
   description="Luc Lagasquie, fondateur de Studio We Are. Plus de 15 ans de développement web, basé dans le Lot. Parcours, valeurs et collaborateurs."
 >
   <!-- Founder section -->
-  <section class="section">
+  <section class="section about-section">
     <div class="container about-hero">
       <div class="about-hero__text animate-slide">
-        <p class="about-eyebrow">Le fondateur</p>
-        <h1>Luc Lagasquie</h1>
+        <p class="about-eyebrow">Luc Lagasquie</p>
+        <h1>Développement web<br>&amp; conseil digital</h1>
         <p class="about-lead">
-          J'ai créé Studio We Are en 2009, à 17 ans, par passion pour le web.
+          J'ai créé Studio We Are en 2009, à 18 ans, par passion pour le web.
           Depuis, j'ai travaillé avec des agences, des graphistes, des PME et des particuliers
           — en France et à l'international.
         </p>
-        <p class="about-body">
+        <p class="about-body--italic">
           Ce qui n'a pas changé : l'attention portée à chaque projet, la conviction que la
           technologie doit servir les gens et non l'inverse, et le plaisir de construire des
           choses qui durent.
-        </p>
-        <p class="about-body">
-          Basé dans le Lot, je travaille à distance sans contrainte géographique. Parmi mes
-          références : des clients en France, en Suisse et au Canada.
         </p>
         <ul class="about-values">
           <li>
@@ -38,21 +37,31 @@ import Button from '../components/ui/Button.astro';
             <strong>Le conseil</strong> — l'expertise au service de décisions éclairées.
           </li>
         </ul>
+        <p class="about-geo">
+          Basé dans le Lot, je travaille à distance sans contrainte géographique. Parmi mes
+          références&nbsp;: France, Suisse, Canada.
+        </p>
       </div>
 
       <div class="about-hero__visual animate-fade">
-        <!-- Replace with: <Image src={import('../assets/about/luc.jpg')} alt="Portrait de Luc Lagasquie" ... /> -->
-        <div class="photo-placeholder" aria-label="Portrait de Luc Lagasquie, fondateur de Studio We Are">
-          <span class="photo-initials">LL</span>
-          <p class="photo-caption">Portrait à venir</p>
+        <div class="about-portrait-wrap">
+          <Image
+            src={portrait}
+            alt="Portrait de Luc Lagasquie, fondateur de Studio We Are"
+            class="about-portrait"
+            widths={[360, 720]}
+            sizes="360px"
+          />
         </div>
-        <div class="about-stat">
-          <span class="about-stat__number">15+</span>
-          <span class="about-stat__label">ans d'expérience</span>
-        </div>
-        <div class="about-stat">
-          <span class="about-stat__number">2009</span>
-          <span class="about-stat__label">année de création</span>
+        <div class="about-stats">
+          <div class="about-stat">
+            <span class="about-stat__number">15<span class="about-stat__plus">+</span></span>
+            <span class="about-stat__label">années<br>de métier</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat__number">2009</span>
+            <span class="about-stat__label">année de<br>création</span>
+          </div>
         </div>
       </div>
     </div>
@@ -63,45 +72,61 @@ import Button from '../components/ui/Button.astro';
     <div class="container">
       <SectionTitle
         label="Collaborateurs"
-        title="L'équipe qui s'agrandit selon vos besoins"
+        title="Une équipe qui s'agrandit selon vos besoins"
         subtitle="Je travaille avec des partenaires de confiance pour les projets qui demandent des compétences complémentaires."
       />
       <div class="collaborators">
         <div class="collab animate-slide stagger-1">
+          <span class="collab__arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 13L13 3M7 3h6v6"/>
+            </svg>
+          </span>
           <div class="collab__header">
-            <div class="collab__avatar" aria-hidden="true">CA</div>
-            <div>
-              <h3 class="collab__name">Céline Andrieux</h3>
+            <Image src={celinePhoto} alt="Céline Andrieux" class="collab__avatar" widths={[128]} sizes="64px" />
+            <div class="collab__identity">
+              <h3 class="collab__name">
+                <a class="collab__link" href="https://celineandrieu.com/" target="_blank" rel="noopener noreferrer">Céline Andrieu</a>
+              </h3>
               <p class="collab__role">Graphiste indépendante</p>
             </div>
           </div>
+          <div class="collab__divider" aria-hidden="true"></div>
           <p class="collab__desc">
             Pour les projets qui demandent une identité visuelle forte, je fais appel à Céline
-            Andrieux. Elle prend en charge la direction artistique, les maquettes et l'identité
+            Andrieu. Elle prend en charge la direction artistique, les maquettes et l'identité
             visuelle — que j'intègre ensuite avec précision dans le code.
           </p>
-          <p class="collab__desc">
-            <strong>Résultat :</strong> cohérence totale entre le design et la technique.
+          <p class="collab__result">
+            <em>Résultat :</em> cohérence totale entre le design et la technique.
             Votre client voit exactement ce que le graphiste a imaginé.
           </p>
         </div>
 
         <div class="collab animate-slide stagger-2">
+          <span class="collab__arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 13L13 3M7 3h6v6"/>
+            </svg>
+          </span>
           <div class="collab__header">
-            <div class="collab__avatar" aria-hidden="true">EK</div>
-            <div>
-              <h3 class="collab__name">Euré-k !</h3>
+            <Image src={eurekPhoto} alt="Euré-k !" class="collab__avatar" widths={[128]} sizes="64px" />
+            <div class="collab__identity">
+              <h3 class="collab__name">
+                <a class="collab__link" href="https://eure-k.fr" target="_blank" rel="noopener noreferrer">Euré-k&nbsp;!</a>
+              </h3>
               <p class="collab__role">Agence de communication partenaire</p>
             </div>
           </div>
+          <div class="collab__divider" aria-hidden="true"></div>
           <p class="collab__desc">
             Partenaire technique de longue date, je réalise les développements web pour les
             projets de l'agence Euré-k ! — intégration de maquettes, WordPress sur-mesure,
             maintenance et support.
           </p>
-          <p class="collab__desc">
-            Une collaboration fondée sur la confiance, l'exigence partagée et des années de
-            projets menés ensemble.
+          <p class="collab__result">
+            <em>Une collaboration</em> fondée sur la confiance, l'exigence partagée et des
+            années de projets menés ensemble.
           </p>
         </div>
       </div>
@@ -109,212 +134,523 @@ import Button from '../components/ui/Button.astro';
   </section>
 
   <!-- CTA -->
-  <section class="section">
-    <div class="container about-cta">
-      <p class="about-cta__text animate-slide">Vous avez un projet ? Travaillons ensemble.</p>
-      <div class="animate-fade stagger-2">
-        <Button href="/contact" variant="primary" size="lg">Prendre contact</Button>
+  <section class="about-cta-dark">
+    <div class="about-cta-dark__bg" aria-hidden="true"></div>
+    <div class="container about-cta-dark__inner">
+      <div class="about-cta-dark__top animate-fade">
+        <span class="about-cta-dark__label">Démarrer un projet</span>
+        <div class="about-cta-dark__rule" aria-hidden="true"></div>
+      </div>
+      <h2 class="about-cta-dark__title animate-slide stagger-1">
+        Parlons de<br /><em>votre projet</em>
+      </h2>
+      <div class="about-cta-dark__foot animate-fade stagger-3">
+        <p class="about-cta-dark__sub">
+          Un site réfléchi, construit avec soin.<br />
+          Prenons le temps d'échanger sur vos besoins.
+        </p>
+        <a href="/contact" class="about-cta-dark__link">
+          <span>Prendre contact</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
       </div>
     </div>
   </section>
 </PageLayout>
 
 <style>
+  /* ===== ABOUT HERO ===== */
   .about-hero {
     display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 5rem;
+    grid-template-columns: 1fr 340px;
+    gap: clamp(3rem, 8vw, 8rem);
     align-items: start;
   }
 
   .about-eyebrow {
-    font-size: 0.8125rem;
-    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-body);
     font-weight: 500;
     max-width: none;
   }
 
   .about-hero__text h1 {
-    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.75rem;
+    max-width: 22ch;
+    line-height: 0.9;
+    font-size: clamp(2.25rem, 5vw, 4rem);
   }
 
   .about-lead {
-    font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
     font-family: var(--font-display);
     font-weight: 300;
-    line-height: 1.7;
-    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    margin-bottom: 0;
     max-width: none;
   }
 
-  .about-body {
+  .about-body--italic {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
     color: var(--text-muted);
-    margin-bottom: 1.25rem;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
     max-width: none;
+    line-height: 1.8;
+    border-top: 1px solid var(--border);
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    margin-bottom: 0;
   }
 
   .about-values {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 1.75rem;
   }
 
   .about-values li {
     color: var(--text-muted);
-    padding-left: 1.5rem;
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    font-size: 0.9375rem;
+    line-height: 1.55;
   }
 
   .about-values li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
+    content: '';
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    background-color: var(--accent);
   }
 
   .about-values strong {
     color: var(--text);
-  }
-
-  .about-hero__visual {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    position: sticky;
-    top: 6rem;
-  }
-
-  .photo-placeholder {
-    aspect-ratio: 3/4;
-    background: var(--bg-alt);
-    border-radius: var(--radius-md);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    border: 1px solid var(--border);
-  }
-
-  .photo-initials {
     font-family: var(--font-display);
-    font-size: 5rem;
-    font-weight: 300;
-    color: var(--border);
+    font-weight: 400;
+    font-size: 1.175rem;
+    font-style: italic;
   }
 
-  .photo-caption {
-    font-size: 0.8125rem;
+  .about-geo {
+    margin-top: 2rem;
     color: var(--text-muted);
     max-width: none;
   }
 
-  .about-stat {
+  /* ===== VISUAL COLUMN ===== */
+  .about-hero__visual {
     display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 1.25rem;
+    flex-direction: column;
+    gap: 0;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .about-portrait-wrap {
+    position: relative;
+  }
+
+  .about-portrait-wrap::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: -10px;
+    bottom: -10px;
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .about-portrait {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Stats — même langage visuel que la section intro de l'accueil */
+  .about-stats {
+    display: flex;
+    gap: 0;
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+  }
+
+  .about-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .about-stat + .about-stat {
+    padding-left: 2rem;
+    border-left: 1px solid var(--border);
+    margin-left: 2rem;
   }
 
   .about-stat__number {
     font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: 600;
+    font-size: clamp(2.75rem, 5vw, 3.75rem);
+    font-weight: 300;
     color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .about-stat__plus {
+    font-size: 0.65em;
+    vertical-align: middle;
     line-height: 1;
   }
 
   .about-stat__label {
-    font-size: 0.875rem;
-    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.75;
+    line-height: 1.5;
   }
 
+  /* ===== COLLABORATORS ===== */
   .collaborators {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1.25rem;
   }
 
   .collab {
-    padding: 2rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
+    background: #f5f1ec;
+    border: 1px solid #e8e5e0;
+    border-radius: 10px;
+    padding: 2rem 2.25rem 1.75rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    overflow: hidden;
+    position: relative;
+    transition:
+      border-color var(--transition),
+      box-shadow var(--transition),
+      transform var(--transition);
+  }
+
+  .collab__arrow {
+    position: absolute;
+    top: 2rem;
+    right: 2.25rem;
+    color: var(--accent);
+    opacity: 0;
+    transform: translate(3px, -3px);
+    transition:
+      opacity var(--transition),
+      transform var(--transition);
+    pointer-events: none;
+    line-height: 0;
+  }
+
+  .collab:hover .collab__arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  .collab__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .collab__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .collab__link:focus-visible {
+    outline: none;
+  }
+
+  .collab:has(.collab__link:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  :global([data-theme="dark"]) .collab {
+    background: var(--bg-alt);
+    border-color: var(--border);
+  }
+
+  .collab:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 32px -8px color-mix(in srgb, var(--accent) 20%, transparent);
+    transform: translateY(-3px);
   }
 
   .collab__header {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .collab__avatar {
-    width: 3rem;
-    height: 3rem;
-    background: var(--accent);
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: #fff;
-    font-weight: 400;
+    object-fit: cover;
     flex-shrink: 0;
+    border: 1px solid #e8e5e0;
+  }
+
+  :global([data-theme="dark"]) .collab__avatar {
+    border-color: var(--border);
+  }
+
+  .collab__identity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
   }
 
   .collab__name {
-    font-size: 1.25rem;
+    font-size: clamp(1.25rem, 1.8vw, 1.6rem);
     margin: 0;
+    line-height: 1.1;
+    transition: color var(--transition);
+  }
+
+  .collab:hover .collab__name {
+    color: var(--accent);
   }
 
   .collab__role {
-    font-size: 0.875rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: var(--font-body);
+    font-weight: 500;
     color: var(--text-muted);
     max-width: none;
+    margin: 0;
+  }
+
+  .collab__divider {
+    height: 1px;
+    background: #e8e5e0;
+    margin-bottom: 1.5rem;
+  }
+
+  :global([data-theme="dark"]) .collab__divider {
+    background: var(--border);
   }
 
   .collab__desc {
     color: var(--text-muted);
     font-size: 0.9375rem;
-    line-height: 1.65;
+    line-height: 1.7;
     max-width: none;
+    margin-bottom: 0.875rem;
   }
 
-  .about-cta {
-    text-align: center;
+  .collab__result {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    max-width: none;
+    margin-top: auto;
+    padding-top: 0.875rem;
+    border-top: 1px solid #e8e5e0;
+  }
+
+  :global([data-theme="dark"]) .collab__result {
+    border-top-color: var(--border);
+  }
+
+  .collab__result em {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text);
+    font-size: 1.05em;
+  }
+
+  /* ===== CTA DARK ===== */
+  .about-cta-dark {
+    position: relative;
+    padding-block: clamp(5rem, 12vw, 12rem);
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    color: var(--text-inv);
+  }
+
+  .about-cta-dark__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(155, 100, 69, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 80% 20%, rgba(155, 100, 69, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .about-cta-dark__inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .about-cta-dark__top {
+    display: flex;
     align-items: center;
     gap: 2rem;
   }
 
-  .about-cta__text {
-    font-family: var(--font-display);
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  .about-cta-dark__label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: var(--font-body);
+    color: rgba(240, 237, 232, 0.4);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .about-cta-dark__rule {
+    flex: 1;
+    height: 1px;
+    background: rgba(240, 237, 232, 0.12);
+  }
+
+  .about-cta-dark__title {
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    color: #f0ede8;
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    font-weight: 300;
     max-width: none;
-    text-align: center;
+  }
+
+  .about-cta-dark__title em {
+    font-style: italic;
+    color: #d4a882;
+  }
+
+  .about-cta-dark__foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(240, 237, 232, 0.1);
+  }
+
+  .about-cta-dark__sub {
+    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+    color: rgba(240, 237, 232, 0.5);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 38ch;
+  }
+
+  .about-cta-dark__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f0ede8;
+    border-bottom: 1px solid rgba(240, 237, 232, 0.3);
+    padding-bottom: 0.3em;
+    transition: color var(--transition), border-color var(--transition), gap var(--transition);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .about-cta-dark__link:hover {
+    color: #d4a882;
+    border-color: #d4a882;
+    gap: 1.25rem;
   }
 
   @media (max-width: 900px) {
     .about-hero {
       grid-template-columns: 1fr;
+      gap: 3rem;
     }
 
     .about-hero__visual {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2rem;
+      align-items: end;
+      position: static;
+    }
+
+    .about-portrait-wrap::after {
       display: none;
+    }
+
+    .about-stats {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .about-stat + .about-stat {
+      padding-left: 0;
+      border-left: none;
+      margin-left: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
     }
 
     .collaborators {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .about-cta-dark__foot {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-hero__visual {
+      grid-template-columns: 1fr;
+    }
+
+    .about-portrait {
+      aspect-ratio: 4/3;
     }
   }
 </style>

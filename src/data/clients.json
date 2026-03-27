@@ -1,5 +1,7 @@
 [
-  { "name": "Euré-k !", "url": "https://eurek.fr", "logo": null },
-  { "name": "Boulangerie du Lot", "url": null, "logo": null },
-  { "name": "Association Paysages", "url": null, "logo": null }
+  {
+    "name": "Euré-k !",
+    "logo": "https://eure-k.fr/wp-content/uploads/logo-eurek-2023.svg"
+  },
+  { "name": "Boulangerie du Lot", "logo": null }
 ]

@@ -1,42 +1,163 @@
 ---
-import Button from '../ui/Button.astro';
 ---
-<section class="section section--dark cta-section">
+<section class="cta-section">
+  <div class="cta-section__bg" aria-hidden="true"></div>
   <div class="container cta-inner">
-    <h2 class="cta-title animate-slide">Parlons de votre projet</h2>
-    <p class="cta-sub animate-fade stagger-2">
-      Un site web réfléchi, construit avec soin — prenons le temps d'échanger sur vos besoins.
-    </p>
-    <div class="animate-fade stagger-3">
-      <Button href="/contact" variant="primary" size="lg">Nous contacter</Button>
+    <div class="cta-top animate-fade">
+      <span class="cta-label">Démarrer un projet</span>
+      <div class="cta-rule" aria-hidden="true"></div>
+    </div>
+    <h2 class="cta-title animate-slide stagger-1">
+      Parlons de<br /><em>votre projet</em>
+    </h2>
+    <div class="cta-foot animate-fade stagger-3">
+      <p class="cta-sub">
+        Un site réfléchi, construit avec soin.<br />
+        Prenons le temps d'échanger ensemble.
+      </p>
+      <a href="/contact" class="cta-link">
+        <span>Me contacter</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
 <style>
   .cta-section {
-    padding-block: clamp(4rem, 10vw, 10rem);
+    position: relative;
+    padding-block: clamp(5rem, 12vw, 12rem);
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    color: var(--text-inv);
+  }
+
+  /* Dégradé radial — lueur décalée à gauche, bords raccordés au footer */
+  .cta-section__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      /* Vignetage latéral — raccordement avec les sections adjacentes */
+      linear-gradient(to right, var(--bg-dark) 0%, transparent 22%, transparent 78%, var(--bg-dark) 100%),
+      /* Vignetage vertical */
+      linear-gradient(to bottom, var(--bg-dark) 0%, transparent 20%, transparent 80%, var(--bg-dark) 100%),
+      /* Lueur ambrée principale — large et diffuse */
+      radial-gradient(ellipse 110% 80% at 40% 52%, #331808 0%, #1e0e04 20%, var(--bg-dark) 80%),
+      /* Halo cuivré secondaire — couvre le tiers gauche */
+      radial-gradient(ellipse 70% 65% at 20% 55%, rgba(155, 100, 69, 0.14) 0%, transparent 70%),
+      /* Éclat discret à droite */
+      radial-gradient(ellipse 45% 40% at 82% 35%, rgba(180, 120, 75, 0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Grain photographique par-dessus */
+  .cta-section__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    pointer-events: none;
   }
 
   .cta-inner {
-    text-align: center;
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1.75rem;
+    gap: clamp(2rem, 4vw, 3.5rem);
   }
 
+  /* Ligne supérieure : label + règle */
+  .cta-top {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .cta-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: var(--font-body);
+    color: rgba(240, 237, 232, 0.5);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .cta-rule {
+    flex: 1;
+    height: 1px;
+    background: rgba(240, 237, 232, 0.2);
+  }
+
+  /* Titre principal */
   .cta-title {
-    color: var(--text-inv);
-    font-size: clamp(2rem, 5vw, 4rem);
-    max-width: 18ch;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    color: #f0ede8;
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+    font-weight: 300;
+    max-width: none;
+  }
+
+  .cta-title em {
+    font-style: italic;
+    color: #d4a882;
+  }
+
+  /* Pied : sous-titre + lien */
+  .cta-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding-top: 4rem;
+    border-top: 1px solid rgba(240, 237, 232, 0.1);
   }
 
   .cta-sub {
-    color: rgba(240, 237, 232, 0.65);
-    font-size: 1.125rem;
-    max-width: 48ch;
-    font-weight: 300;
+    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+    color: rgba(240, 237, 232, 0.5);
     line-height: 1.8;
+    font-weight: 300;
+    max-width: 38ch;
+  }
+
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f0ede8;
+    border-bottom: 1px solid rgba(240, 237, 232, 0.3);
+    padding-bottom: 0.3em;
+    transition: color var(--transition), border-color var(--transition), gap var(--transition);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .cta-link:hover {
+    color: #d4a882;
+    border-color: #d4a882;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .cta-foot {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
   }
 </style>

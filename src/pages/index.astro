@@ -10,7 +10,7 @@ const jsonLd = {
   '@type': 'LocalBusiness',
   name: 'Studio We Are',
   description:
-    "Création de sites web artisanaux depuis 2009. Développement web sur-mesure, conseil stratégique, photographie.",
+    "Création de sites web artisanaux depuis 2009. Développement web sur-mesure et conseil stratégique.",
   foundingDate: '2009',
   founder: {
     '@type': 'Person',
@@ -37,26 +37,35 @@ const jsonLd = {
   title="Studio We Are — Création de sites web artisanaux"
   description="Développement web sur-mesure depuis 2009 — sites vitrine, WordPress, Astro, e-commerce. Basé dans le Lot, intervention nationale et internationale."
   jsonLd={jsonLd}
+  overlayHeader={true}
 >
   <Hero />
 
   <!-- Introduction -->
   <section class="section intro" id="intro">
     <div class="container">
-      <div class="intro__text animate-slide">
-        <p class="intro__eyebrow">L'humain derrière We Are</p>
-        <p class="intro__lead">
-          Je m'appelle Luc Lagasquie. Depuis 2009 — au sortir du lycée — je construis des sites
-          web pour des entreprises, des artistes, des associations et des agences.
-          Pas des templates remplis : des sites pensés, discutés, faits à la main.
-        </p>
-        <p class="intro__body">
-          Quinze ans de métier, c'est une compréhension fine des technologies, mais aussi de ce
-          qui fait qu'un site travaille vraiment pour son propriétaire.
-        </p>
-        <a href="/a-propos" class="intro__link">
-          En savoir plus sur Studio We Are <span aria-hidden="true">→</span>
-        </a>
+      <div class="intro-grid">
+        <div class="intro-stat animate-fade">
+          <span class="intro-stat__num">15<span class="intro-stat__plus">+</span></span>
+          <div class="intro-stat__meta">
+            <span class="intro-stat__label">années<br>de métier</span>
+          </div>
+        </div>
+        <div class="intro-body animate-slide stagger-2">
+          <p class="intro__eyebrow">Derrière le studio We Are</p>
+          <p class="intro__lead">
+            Je m'appelle Luc Lagasquie. Depuis 2009 — au sortir du lycée — je construis des sites
+            web pour des entreprises, des artistes, des associations et des agences.
+            Pas des templates remplis : des sites pensés, discutés, faits à la main.
+          </p>
+          <p class="intro__body">
+            Plus de quinze années de métier, c'est une compréhension fine des technologies, mais aussi de ce
+            qui fait qu'un site travaille vraiment pour son propriétaire.
+          </p>
+          <a href="/a-propos" class="intro__link">
+            En savoir plus sur Studio We Are <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -67,13 +76,69 @@ const jsonLd = {
 </PageLayout>
 
 <style>
-  .intro__text {
-    max-width: var(--content-width);
+  /* ===== INTRO SECTION ===== */
+  .intro {
+    padding-block: var(--space-xl);
+    border-top: 1px solid var(--border);
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+  }
+
+  /* Stat décorative gauche */
+  .intro-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-top: 0.25rem;
+  }
+
+  .intro-stat__num {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+  }
+
+  .intro-stat__plus {
+    font-size: clamp(2rem, 4vw, 4rem);
+    vertical-align: middle;
+    line-height: 1;
+  }
+
+  .intro-stat__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-left: 0.125rem;
+  }
+
+  .intro-stat__label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+
+  /* Texte droit */
+  .intro-body {
+    max-width: 60ch;
   }
 
   .intro__eyebrow {
-    font-size: 0.8125rem;
-    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 1.5rem;
@@ -83,32 +148,60 @@ const jsonLd = {
   }
 
   .intro__lead {
-    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    font-size: clamp(1.125rem, 1.8vw, 1.35rem);
     line-height: 1.75;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0;
     font-family: var(--font-display);
     font-weight: 300;
     max-width: none;
   }
 
   .intro__body {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
     color: var(--text-muted);
-    font-size: 1.0625rem;
-    margin-bottom: 2rem;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    margin-bottom: 2.5rem;
     max-width: none;
+    line-height: 1.8;
+    border-top: 1px solid var(--border);
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
   }
 
   .intro__link {
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    color: var(--accent);
+    letter-spacing: 0.08em;
+    color: var(--text);
     display: inline-flex;
     align-items: center;
-    gap: 0.3em;
-    transition: gap var(--transition);
+    gap: 0.75em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.3em;
+    transition: border-color var(--transition), color var(--transition);
   }
 
   .intro__link:hover {
-    gap: 0.6em;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .intro-stat {
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .intro-stat__num {
+      font-size: 2.75rem;
+    }
   }
 </style>

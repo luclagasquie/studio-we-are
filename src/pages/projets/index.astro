@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import SectionTitle from '../../components/ui/SectionTitle.astro';
 import ProjectCard from '../../components/realisations/ProjectCard.astro';
+import ClientLogos from '../../components/home/ClientLogos.astro';
+import CtaSection from '../../components/home/CtaSection.astro';
 
 const allProjects = await getCollection('projets', ({ data }) =>
   import.meta.env.DEV ? true : !data.draft
@@ -13,27 +15,32 @@ const projects = allProjects.sort(
 );
 ---
 <PageLayout
-  title="Réalisations — Studio We Are"
+  title="Projets — Studio We Are"
   description="Découvrez nos projets web : sites vitrine, e-commerce, WordPress sur-mesure, Astro. Études de cas détaillées."
 >
   <section class="section">
     <div class="container">
       <SectionTitle
-        label="Portfolio"
-        title="Nos réalisations"
-        subtitle="Des projets pensés pour durer — chaque site raconte une histoire."
+        label="Une sélection — parmi bien d'autres"
+        title="Une centaine de projets. Autant d'histoires."
+        subtitle="Sites vitrines, e-commerces, plateformes sur mesure : j'ai travaillé avec des clients de tous secteurs — public, privé, TPE, multinationales — en France et à l'international.<br>Des projets pensés pour durer, chacun à sa façon."
       />
       {projects.length > 0 ? (
-        <div class="projects-grid">
+        <div class="projects-list">
           {projects.map((p, i) => (
             <ProjectCard
               title={p.data.title}
               description={p.data.description}
               secteur={p.data.secteur}
+              type={p.data.type}
               stack={p.data.stack}
+              url={p.data.url}
+              image={p.data.image}
+              logo={p.data.logo}
               slug={p.data.slug}
-              draft={p.data.draft}
               stagger={Math.min(i + 1, 6)}
+              reverse={i % 2 === 1}
+              index={i}
             />
           ))}
         </div>
@@ -42,13 +49,13 @@ const projects = allProjects.sort(
       )}
     </div>
   </section>
+  <ClientLogos />
+  <CtaSection />
 </PageLayout>
 
 <style>
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 2rem;
+  .projects-list {
+    margin-top: 4rem;
   }
 
   .empty-state {
