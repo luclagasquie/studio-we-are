@@ -20,7 +20,7 @@
   {
     "id": "astro",
     "title": "Site Astro / Headless",
-    "tagline": "Performance maximale, zéro compromis sur la rapidité.",
+    "tagline": "Performance et sécurité maximale, zéro compromis sur la rapidité.",
     "icon": "zap"
   },
   {
@@ -32,7 +32,7 @@
   {
     "id": "conseil",
     "title": "Conseil & accompagnement",
-    "tagline": "Choisir la bonne solution plutôt que la plus complexe.",
+    "tagline": "Choisir une solution adaptée à vos besoins, tout en prenant en compte sa capacité à évoluer.",
     "icon": "message-circle"
   }
 ]
