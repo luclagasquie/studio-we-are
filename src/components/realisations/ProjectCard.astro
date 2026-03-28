@@ -30,6 +30,7 @@ const {
   stagger = 0,
   reverse = false,
   index = 0,
+  ...rest
 } = Astro.props;
 
 const num = String(index + 1).padStart(2, '0');
@@ -51,6 +52,7 @@ const typeLabel: Record<string, string> = {
     reverse && 'project-strip--reverse',
   ]}
   aria-label={`Projet : ${title}`}
+  {...rest}
 >
   <!-- IMAGE AREA -->
   <div class="project-strip__visual">

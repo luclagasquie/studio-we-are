@@ -13,6 +13,9 @@ const allProjects = await getCollection('projets', ({ data }) =>
 const projects = allProjects.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
+
+const INITIAL_COUNT = 4; // cartes visibles au chargement
+const BATCH_SIZE = 4;    // cartes révélées par clic
 ---
 <PageLayout
   title="Projets — Studio We Are"
@@ -26,7 +29,7 @@ const projects = allProjects.sort(
         subtitle="Sites vitrines, e-commerces, plateformes sur mesure : j'ai travaillé avec des clients de tous secteurs — public, privé, TPE, multinationales — en France et à l'international.<br>Des projets pensés pour durer, chacun à sa façon."
       />
       {projects.length > 0 ? (
-        <div class="projects-list">
+        <div class="projects-list" aria-live="polite">
           {projects.map((p, i) => (
             <ProjectCard
               title={p.data.title}
@@ -41,6 +44,7 @@ const projects = allProjects.sort(
               stagger={Math.min(i + 1, 6)}
               reverse={i % 2 === 1}
               index={i}
+              {...(i >= INITIAL_COUNT ? { 'data-hidden-project': '' } : {})}
             />
           ))}
         </div>
