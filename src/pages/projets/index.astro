@@ -51,6 +51,16 @@ const BATCH_SIZE = 4;    // cartes révélées par clic
       ) : (
         <p class="empty-state">Nos études de cas arrivent bientôt.</p>
       )}
+      {projects.length > INITIAL_COUNT && (
+        <div class="load-more-wrap">
+          <button type="button" class="load-more-btn" data-load-more>
+            Charger plus de projets
+            <span class="load-more-btn__count" data-count>
+              ({projects.length - INITIAL_COUNT} restant{projects.length - INITIAL_COUNT > 1 ? 's' : ''})
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   </section>
   <ClientLogos />
@@ -66,5 +76,49 @@ const BATCH_SIZE = 4;    // cartes révélées par clic
     color: var(--text-muted);
     font-style: italic;
     padding: 3rem 0;
+  }
+
+  /* Cartes masquées par le script — display: none appliqué via JS */
+  :global(.project-hidden) {
+    display: none !important;
+  }
+
+  /* Wrapper du bouton */
+  .load-more-wrap {
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Bouton */
+  .load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.875rem 2rem;
+    border: 1px solid var(--border);
+    transition: color var(--transition), border-color var(--transition);
+  }
+
+  .load-more-btn:hover:not(:disabled) {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .load-more-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .load-more-btn__count {
+    font-weight: 300;
+    opacity: 0.7;
   }
 </style>
