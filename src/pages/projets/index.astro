@@ -128,11 +128,27 @@ const BATCH_SIZE = 4;    // cartes révélées par clic
     const btn = document.querySelector('[data-load-more]');
     if (!btn) return; // moins de INITIAL_COUNT projets : rien à faire
 
+    const STAGGER_MAX = 9; // matches the number of .stagger-N levels in animations.css
+
     // --- Masquage initial ---
     const allHiddenCards = Array.from(
       document.querySelectorAll('[data-hidden-project]')
     );
     allHiddenCards.forEach((card) => card.classList.add('project-hidden'));
+
+    // --- Mise à jour du compteur ---
+    function updateCount() {
+      const remaining = document.querySelectorAll(
+        '[data-hidden-project].project-hidden'
+      ).length;
+      const countEl = btn.querySelector('[data-count]');
+      if (countEl) {
+        countEl.textContent = `(${remaining} restant${remaining > 1 ? 's' : ''})`;
+      }
+    }
+
+    // Call updateCount() at initialization to ensure the displayed count matches the DOM state
+    updateCount();
 
     // --- Observer pour les animations des cartes révélées ---
     // On crée un observer dédié (le BaseLayout observer est un module ES,
@@ -149,17 +165,6 @@ const BATCH_SIZE = 4;    // cartes révélées par clic
       { threshold: 0.12 }
     );
 
-    // --- Mise à jour du compteur ---
-    function updateCount() {
-      const remaining = document.querySelectorAll(
-        '[data-hidden-project].project-hidden'
-      ).length;
-      const countEl = btn.querySelector('[data-count]');
-      if (countEl) {
-        countEl.textContent = `(${remaining} restant${remaining > 1 ? 's' : ''})`;
-      }
-    }
-
     // --- Clic : révéler le prochain batch ---
     btn.addEventListener('click', () => {
       btn.disabled = true;
@@ -171,9 +176,9 @@ const BATCH_SIZE = 4;    // cartes révélées par clic
 
       batch.forEach((card, i) => {
         // Réinitialiser les classes stagger (valeurs du build, relatives au projet global)
-        for (let n = 1; n <= 9; n++) card.classList.remove(`stagger-${n}`);
+        for (let n = 1; n <= STAGGER_MAX; n++) card.classList.remove(`stagger-${n}`);
         // Réassigner le stagger relatif à la position dans le batch
-        card.classList.add(`stagger-${Math.min(i + 1, 9)}`);
+        card.classList.add(`stagger-${Math.min(i + 1, STAGGER_MAX)}`);
 
         // Afficher la carte
         card.classList.remove('project-hidden');
@@ -187,10 +192,11 @@ const BATCH_SIZE = 4;    // cartes révélées par clic
         '[data-hidden-project].project-hidden'
       ).length;
 
+      // Defensive: always re-enable button before DOM removal in case removal fails
+      btn.disabled = false;
       if (stillHidden === 0) {
         btn.closest('.load-more-wrap')?.remove();
       } else {
-        btn.disabled = false;
         updateCount();
       }
     });
