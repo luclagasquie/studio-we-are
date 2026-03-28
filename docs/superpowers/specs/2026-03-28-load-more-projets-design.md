@@ -81,7 +81,7 @@ L'effet visuel est identique à l'apparition initiale des premières cartes : fo
 ## Accessibilité
 
 - Le bouton est un `<button type="button">` standard, navigable au clavier
-- Attribut `aria-live="polite"` sur la liste pour annoncer les nouvelles cartes aux lecteurs d'écran (optionnel mais recommandé)
+- Attribut `aria-live="polite"` sur la liste pour annoncer les nouvelles cartes aux lecteurs d'écran
 
 ---
 
