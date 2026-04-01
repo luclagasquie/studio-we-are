@@ -5,6 +5,7 @@ import { Image } from 'astro:assets';
 import portrait from '../assets/about/2024-portrait-lagasquie.jpg';
 import celinePhoto from '../assets/about/celine-andrieu.jpeg';
 import eurekPhoto from '../assets/about/eure-k.jpeg';
+import CtaSection from '../components/home/CtaSection.astro';
 ---
 <PageLayout
   title="À propos — Studio We Are"
@@ -132,33 +133,8 @@ import eurekPhoto from '../assets/about/eure-k.jpeg';
       </div>
     </div>
   </section>
-
-  <!-- CTA -->
-  <section class="about-cta-dark">
-    <div class="about-cta-dark__bg" aria-hidden="true"></div>
-    <div class="container about-cta-dark__inner">
-      <div class="about-cta-dark__top animate-fade">
-        <span class="about-cta-dark__label">Démarrer un projet</span>
-        <div class="about-cta-dark__rule" aria-hidden="true"></div>
-      </div>
-      <h2 class="about-cta-dark__title animate-slide stagger-1">
-        Parlons de<br /><em>votre projet</em>
-      </h2>
-      <div class="about-cta-dark__foot animate-fade stagger-3">
-        <p class="about-cta-dark__sub">
-          Un site réfléchi, construit avec soin.<br />
-          Prenons le temps d'échanger sur vos besoins.
-        </p>
-        <a href="/contact" class="about-cta-dark__link">
-          <span>Prendre contact</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
+  
+<CtaSection />
 </PageLayout>
 
 <style>
@@ -494,109 +470,6 @@ import eurekPhoto from '../assets/about/eure-k.jpeg';
     font-size: 1.05em;
   }
 
-  /* ===== CTA DARK ===== */
-  .about-cta-dark {
-    position: relative;
-    padding-block: clamp(5rem, 12vw, 12rem);
-    overflow: hidden;
-    background-color: var(--bg-dark);
-    color: var(--text-inv);
-  }
-
-  .about-cta-dark__bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(155, 100, 69, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 80% at 80% 20%, rgba(155, 100, 69, 0.06) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .about-cta-dark__inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(2rem, 4vw, 3.5rem);
-  }
-
-  .about-cta-dark__top {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .about-cta-dark__label {
-    font-size: 0.6875rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-family: var(--font-body);
-    color: rgba(240, 237, 232, 0.4);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .about-cta-dark__rule {
-    flex: 1;
-    height: 1px;
-    background: rgba(240, 237, 232, 0.12);
-  }
-
-  .about-cta-dark__title {
-    font-size: clamp(3.5rem, 9vw, 7rem);
-    color: #f0ede8;
-    line-height: 0.85;
-    letter-spacing: -0.03em;
-    font-weight: 300;
-    max-width: none;
-  }
-
-  .about-cta-dark__title em {
-    font-style: italic;
-    color: #d4a882;
-  }
-
-  .about-cta-dark__foot {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 3rem;
-    flex-wrap: wrap;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(240, 237, 232, 0.1);
-  }
-
-  .about-cta-dark__sub {
-    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
-    color: rgba(240, 237, 232, 0.5);
-    line-height: 1.8;
-    font-weight: 300;
-    max-width: 38ch;
-  }
-
-  .about-cta-dark__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #f0ede8;
-    border-bottom: 1px solid rgba(240, 237, 232, 0.3);
-    padding-bottom: 0.3em;
-    transition: color var(--transition), border-color var(--transition), gap var(--transition);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .about-cta-dark__link:hover {
-    color: #d4a882;
-    border-color: #d4a882;
-    gap: 1.25rem;
-  }
-
   @media (max-width: 900px) {
     .about-hero {
       grid-template-columns: 1fr;
@@ -633,14 +506,6 @@ import eurekPhoto from '../assets/about/eure-k.jpeg';
 
     .collaborators {
       grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .about-cta-dark__foot {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.5rem;
     }
   }
 
