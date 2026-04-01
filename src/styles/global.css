@@ -1,5 +1,27 @@
-/* ===== GOOGLE FONTS ===== */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+/* ===== LOCAL FONTS ===== */
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  src: url('../assets/fonts/SortsMillGoudy-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  src: url('../assets/fonts/SortsMillGoudy-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switz';
+  src: url('../assets/fonts/switz.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ===== CSS VARIABLES — LIGHT ===== */
 :root {
@@ -13,8 +35,8 @@
   --accent-light: #c4916d;
   --border: #ddd9d3;
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-display: 'Sorts Mill Goudy', Georgia, serif;
+  --font-body: 'Switz', system-ui, sans-serif;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -54,7 +76,6 @@
   padding: 0;
 }
 
-
 img,
 video {
   max-width: 100%;
@@ -91,7 +112,9 @@ body {
   color: var(--text);
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
-  transition: background-color var(--transition), color var(--transition);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -123,6 +146,7 @@ h4 {
 
 p {
   max-width: 65ch;
+  letter-spacing: -0.02em;
 }
 
 /* ===== LAYOUT UTILITIES ===== */
@@ -164,6 +188,10 @@ p {
 
 /* ===== ANIMATIONS ===== */
 @keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
