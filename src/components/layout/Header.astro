@@ -160,7 +160,7 @@ const { transparent = false } = Astro.props;
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-    font-size: 0.875rem;
+    font-size: var(--text-s);
     font-weight: 500;
     z-index: 200;
     transition: top var(--transition);
@@ -371,7 +371,7 @@ const { transparent = false } = Astro.props;
     }
 
     .mobile-nav__link {
-      font-size: clamp(1.75rem, 6vw, 2.5rem);
+      font-size: var(--heading-l);
       font-family: var(--font-display);
       font-weight: 300;
       color: var(--text-muted);

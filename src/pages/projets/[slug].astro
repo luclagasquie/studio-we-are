@@ -79,7 +79,7 @@ const d = project.data;
   }
 
   .case-back {
-    font-size: 0.875rem;
+    font-size: var(--text-s);
     color: var(--text-muted);
     display: inline-block;
     margin-bottom: 2rem;
@@ -102,12 +102,12 @@ const d = project.data;
   }
 
   .case-title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: var(--heading-xl);
     margin-bottom: 1.25rem;
   }
 
   .case-desc {
-    font-size: 1.2rem;
+    font-size: var(--text-l);
     color: var(--text-muted);
     margin-bottom: 1.5rem;
     line-height: 1.75;
@@ -122,7 +122,7 @@ const d = project.data;
   }
 
   .case-site-link {
-    font-size: 0.9375rem;
+    font-size: var(--text-s);
     font-weight: 500;
     color: var(--accent);
     display: inline-block;
@@ -138,12 +138,12 @@ const d = project.data;
   }
 
   .case-content :global(h2) {
-    font-size: 1.75rem;
+    font-size: var(--heading-xl);
     margin-block: 2.5rem 0.75rem;
   }
 
   .case-content :global(h3) {
-    font-size: 1.35rem;
+    font-size: var(--heading-l);
     margin-block: 2rem 0.5rem;
   }
 
@@ -151,6 +151,7 @@ const d = project.data;
     color: var(--text-muted);
     margin-bottom: 1.25rem;
     max-width: none;
+    font-size: var(--text-m);
   }
 
   .case-cta {
@@ -173,7 +174,7 @@ const d = project.data;
 
   .case-cta__text p {
     color: var(--text-muted);
-    font-size: 0.9375rem;
+    font-size: var(--text-m);
     max-width: none;
   }
 </style>
