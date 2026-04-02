@@ -191,14 +191,14 @@ const { id, title, tagline, stagger = 0 } = Astro.props;
 
   .service-card__title {
     font-family: var(--font-display);
-    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+    font-size: var(--heading-m);
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
 
   .service-card__desc {
-    font-size: 0.875rem;
+    font-size: var(--text-m);
     line-height: 1.7;
     color: var(--text-muted);
   }

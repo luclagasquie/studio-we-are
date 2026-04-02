@@ -27,17 +27,17 @@ const { title, description = title } = Astro.props;
   }
 
   .legal-prose :global(h1) {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: var(--heading-xl);
     margin-bottom: 2.5rem;
   }
 
   .legal-prose :global(h2) {
-    font-size: 1.6rem;
+    font-size: var(--heading-xl);
     margin-block: 2.5rem 0.75rem;
   }
 
   .legal-prose :global(h3) {
-    font-size: 1.25rem;
+    font-size: var(--heading-l);
     margin-block: 2rem 0.5rem;
   }
 
@@ -47,6 +47,7 @@ const { title, description = title } = Astro.props;
     margin-bottom: 1rem;
     color: var(--text-muted);
     max-width: none;
+    font-size: var(--text-m);
   }
 
   .legal-prose :global(a) {

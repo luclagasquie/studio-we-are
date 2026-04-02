@@ -1,23 +1,23 @@
 /* ===== LOCAL FONTS ===== */
 @font-face {
-  font-family: 'Sorts Mill Goudy';
-  src: url('../assets/fonts/SortsMillGoudy-Regular.woff2') format('woff2');
+  font-family: "Sorts Mill Goudy";
+  src: url("../assets/fonts/SortsMillGoudy-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Sorts Mill Goudy';
-  src: url('../assets/fonts/SortsMillGoudy-Italic.woff2') format('woff2');
+  font-family: "Sorts Mill Goudy";
+  src: url("../assets/fonts/SortsMillGoudy-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Switz';
-  src: url('../assets/fonts/switz.woff2') format('woff2');
+  font-family: "Switz";
+  src: url("../assets/fonts/switz.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -35,8 +35,19 @@
   --accent-light: #c4916d;
   --border: #ddd9d3;
 
-  --font-display: 'Sorts Mill Goudy', Georgia, serif;
-  --font-body: 'Switz', system-ui, sans-serif;
+  --font-display: "Sorts Mill Goudy", Georgia, serif;
+  --font-body: "Switz", system-ui, sans-serif;
+
+  --text-s: clamp(0.875rem, 1.2vw, 0.95rem);
+  --text-m: clamp(0.9375rem, 1.5vw, 1rem);
+  --text-l: clamp(1.0625rem, 2vw, 1.25rem);
+  --text-xl: clamp(1.125rem, 2.5vw, 1.375rem);
+
+  --heading-s: clamp(1.125rem, 2vw, 1.25rem);
+  --heading-m: clamp(1.25rem, 2.5vw, 1.5rem);
+  --heading-l: clamp(1.5rem, 3vw, 2rem);
+  --heading-xl: clamp(2.25rem, 5vw, 4rem);
+  --heading-2xl: clamp(2.5rem, 6vw, 4.5rem);
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -62,8 +73,8 @@
   --text: #f0ede8;
   --text-muted: #9a9690;
   --text-inv: #1a1a18;
-  --accent: #c4916d;
-  --accent-light: #d9a98a;
+  --accent: #d19868;
+  --accent-light: #c4916d;
   --border: #2a2926;
 }
 
@@ -129,24 +140,29 @@ h4 {
 }
 
 h1 {
-  font-size: clamp(3rem, 8vw, 8rem);
+  font-size: var(--heading-2xl);
 }
 
 h2 {
-  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  font-size: var(--heading-xl);
 }
 
 h3 {
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-size: var(--heading-l);
 }
 
 h4 {
-  font-size: 1.25rem;
+  font-size: var(--heading-m);
 }
 
 p {
+  font-size: var(--text-m);
   max-width: 65ch;
   letter-spacing: -0.02em;
+}
+
+a {
+  font-size: var(--text-s);
 }
 
 /* ===== LAYOUT UTILITIES ===== */

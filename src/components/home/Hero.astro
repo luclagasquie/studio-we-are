@@ -106,7 +106,7 @@ import heroBg from '../../assets/hero/luc-lagasquie-paysage-lot.webp';
     z-index: 1;
     color: #f0ede8;
     /* Add header height (4.5rem) on top of the section's natural spacing */
-    padding-top: calc(4.5rem + clamp(3rem, 6vw, 6rem));
+    padding-top: calc(clamp(4rem, 9vw, 9rem) - 4.5rem);
     padding-bottom: clamp(4rem, 9vw, 9rem);
     display: flex;
     flex-direction: column;
@@ -164,7 +164,7 @@ import heroBg from '../../assets/hero/luc-lagasquie-paysage-lot.webp';
   }
 
   .hero__subtitle {
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    font-size: var(--text-s);
     color: rgba(240, 237, 232, 0.55);
     font-weight: 300;
     line-height: 1.9;
