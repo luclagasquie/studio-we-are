@@ -8,13 +8,13 @@ description: Politique de confidentialité de Studio We Are — données collect
 
 ## Responsable du traitement
 
-Studio We Are — Luc Lagasquie
+Studio We Are — Luc Lagasquie  
 220 chemin du Bartassou, 46700 Sérignac, France
-[luc@studioweare.fr](mailto:luc@studioweare.fr)
 
 ## Données collectées
 
 Studio We Are collecte uniquement les données transmises volontairement via le formulaire de contact :
+
 - Nom et prénom
 - Adresse email
 - Numéro de téléphone (facultatif)
@@ -33,12 +33,13 @@ Les données sont conservées le temps nécessaire au traitement de votre demand
 ## Vos droits
 
 Conformément au Règlement général sur la protection des données (RGPD), vous disposez des droits suivants :
+
 - **Droit d'accès** : obtenir une copie de vos données personnelles
 - **Droit de rectification** : corriger des données inexactes
 - **Droit à l'effacement** : demander la suppression de vos données
 - **Droit à la portabilité** : recevoir vos données dans un format structuré
 
-Pour exercer ces droits, contactez-nous à [luc@studioweare.fr](mailto:luc@studioweare.fr). Nous répondrons dans un délai d'un mois.
+Pour exercer ces droits, contactez-moi à [luc@we-are.fr](mailto:luc@we-are.fr). Je répondrais dans un délai d'un mois.
 
 Vous disposez également du droit de déposer une réclamation auprès de la CNIL ([cnil.fr](https://www.cnil.fr)).
 
