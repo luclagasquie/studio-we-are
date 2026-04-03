@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import SectionTitle from '../components/ui/SectionTitle.astro';
+import Button from '../components/ui/Button.astro';
 
 const searchParams = Astro.url.searchParams;
 const merci = searchParams.get('merci') === '1';
@@ -29,7 +30,7 @@ const objetOptions = [
           label="Contact"
           labelTag="h1"
           title="Parlons de votre projet"
-          subtitle="Je réponds rapidement."
+          subtitle="Pas besoin d'avoir un cahier des charges complet. Une idée, une problématique, un budget approximatif — c'est suffisant pour commencer à discuter."
         />
         <dl class="contact-details">
           <div class="contact-item">
@@ -63,10 +64,6 @@ const objetOptions = [
             <dd>France & international,<br>je parle français et anglais 🇫🇷 🇬🇧</dd>
           </div>
         </dl>
-        <p class="contact-note">
-          Pas besoin d'avoir un cahier des charges complet. Une idée, une problématique,
-          un budget approximatif — c'est suffisant pour commencer à discuter.
-        </p>
       </div>
 
       <!-- Right: form -->
@@ -166,13 +163,13 @@ const objetOptions = [
               ></textarea>
             </div>
 
-            <button type="submit" class="form-submit btn-sm">
+            <Button type="submit" variant="primary" size="md" class="form-submit">
               Envoyer le message
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="22" y1="2" x2="11" y2="13"/>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"/>
               </svg>
-            </button>
+            </Button>
           </form>
         )}
         
@@ -333,6 +330,7 @@ const objetOptions = [
     cursor: pointer;
     transition: background var(--transition), transform var(--transition);
     align-self: flex-start;
+    width: fit-content;
   }
 
   .form-submit:hover {

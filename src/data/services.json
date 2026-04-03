@@ -1,38 +1,44 @@
 [
   {
     "id": "vitrine",
-    "title": "Site vitrine",
+    "title": "Sites vitrines",
     "tagline": "Votre meilleure carte de visite en ligne, pensée pour convaincre.",
-    "icon": "monitor"
+    "icon": "monitor",
+    "image": "./assets/services/site-internet-quercy.jpeg"
   },
   {
     "id": "ecommerce",
     "title": "E-commerce",
     "tagline": "WooCommerce ou Shopify — vendre en ligne, simplement et efficacement.",
-    "icon": "shopping-bag"
+    "icon": "shopping-bag",
+    "image": "./assets/services/site-internet-sur-mesure.jpg"
   },
   {
     "id": "wordpress",
     "title": "WordPress sur-mesure",
     "tagline": "Bricks ou Etch — un site que vous gérez vous-même, sans dépendance.",
-    "icon": "layout"
+    "icon": "layout",
+    "image": "./assets/services/site-internet-astro.jpg"
   },
   {
     "id": "astro",
-    "title": "Site Astro / Headless",
+    "title": "Sites Astro /\n Headless",
     "tagline": "Performance et sécurité maximale, zéro compromis sur la rapidité.",
-    "icon": "zap"
+    "icon": "zap",
+    "image": "./assets/services/site-internet-quercy.jpeg"
   },
   {
     "id": "maintenance",
-    "title": "Maintenance & support",
+    "title": "Maintenance\net support",
     "tagline": "Votre site entre de bonnes mains — mises à jour, sécurité, sérénité.",
-    "icon": "shield"
+    "icon": "shield",
+    "image": "./assets/services/site-internet-astro.jpg"
   },
   {
     "id": "conseil",
-    "title": "Conseil & accompagnement",
-    "tagline": "Choisir une solution adaptée à vos besoins, tout en prenant en compte sa capacité à évoluer.",
-    "icon": "message-circle"
+    "title": "Conseil\net accompagnement",
+    "tagline": "Choisir une solution adaptée à vos besoins et prendre en compte sa capacité à évoluer.",
+    "icon": "message-circle",
+    "image": "./assets/services/site-internet-sur-mesure.jpg"
   }
 ]

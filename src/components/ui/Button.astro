@@ -39,6 +39,7 @@ const Tag = href ? 'a' : 'button';
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
+    width: fit-content;
   }
 
   .btn:active {
@@ -107,46 +108,26 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn--outline {
-    position: relative;
-    overflow: hidden;
     background: transparent;
-    color: inherit;
-    border: 1px solid currentColor;
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    /*backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);*/
     transition:
+      background 0.4s ease,
       border-color 0.4s ease,
-      box-shadow 0.4s ease,
-      color 0.4s ease;
-  }
-
-  .btn--outline::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--accent) 65%, transparent),
-      color-mix(in srgb, var(--accent) 35%, transparent)
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: -1;
+      box-shadow 0.4s ease;
   }
 
   .btn--outline:hover {
-    color: #fff;
-    border-color: color-mix(in srgb, var(--accent-light) 60%, transparent);
-    box-shadow:
-      0 4px 20px color-mix(in srgb, var(--accent) 35%, transparent),
-      inset 0 1px 0 color-mix(in srgb, #fff 30%, transparent);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 80%, transparent);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 30%, transparent);
   }
 
-  .btn--outline:hover::before {
-    opacity: 0.5;
+  .btn--outline:active {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+    box-shadow: 0 1px 4px color-mix(in srgb, var(--accent) 25%, transparent);
   }
 
   .btn--ghost {

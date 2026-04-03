@@ -33,7 +33,7 @@
   --text-inv: #f0ede8;
   --accent: #9b6445;
   --accent-light: #c4916d;
-  --border: #ddd9d3;
+  --border: #dcd7d0;
 
   --font-display: "Sorts Mill Goudy", Georgia, serif;
   --font-body: "Switz", system-ui, sans-serif;
@@ -44,9 +44,9 @@
   --text-xl: clamp(1.125rem, 2.5vw, 1.375rem);
 
   --heading-s: clamp(1.125rem, 2vw, 1.25rem);
-  --heading-m: clamp(1.25rem, 2.5vw, 1.5rem);
+  --heading-m: clamp(1.25rem, 2.5vw, 1.75rem);
   --heading-l: clamp(1.5rem, 3vw, 2rem);
-  --heading-xl: clamp(2.25rem, 5vw, 4rem);
+  --heading-xl: clamp(2.25rem, 5vw, 3.5rem);
   --heading-2xl: clamp(2.5rem, 6vw, 4.5rem);
 
   --space-xs: 0.5rem;
@@ -71,11 +71,11 @@
   --bg-alt: #1c1c1a;
   --bg-dark: #0a0a09;
   --text: #f0ede8;
-  --text-muted: #9a9690;
+  --text-muted: #a19d98;
   --text-inv: #1a1a18;
   --accent: #d19868;
   --accent-light: #c4916d;
-  --border: #2a2926;
+  --border: #413f38;
 }
 
 /* ===== RESET ===== */

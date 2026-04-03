@@ -1,7 +1,26 @@
 ---
 import SectionTitle from '../ui/SectionTitle.astro';
 import ServiceCard from './ServiceCard.astro';
-import services from '../../data/services.json';
+import servicesData from '../../data/services.json';
+import siteInternetQuercy from '../../assets/services/site-internet-quercy.jpeg';
+import siteInternetAstro from '../../assets/services/site-internet-astro.jpg';
+import siteInternetSurMesure from '../../assets/services/site-internet-sur-mesure.jpg';
+
+const imageMap: Record<string, typeof siteInternetQuercy> = {
+  './assets/services/site-internet-quercy.jpeg': siteInternetQuercy,
+  './assets/services/site-internet-astro.jpg': siteInternetAstro,
+  './assets/services/site-internet-sur-mesure.jpg': siteInternetSurMesure,
+};
+
+type Service = {
+  id: string;
+  title: string;
+  tagline: string;
+  icon: string;
+  image: string;
+};
+
+const services = servicesData as Service[];
 ---
 <section class="services-section" id="prestations">
   <div class="container">
@@ -22,6 +41,7 @@ import services from '../../data/services.json';
           title={s.title}
           tagline={s.tagline}
           icon={s.icon}
+          image={imageMap[s.image]}
           stagger={Math.min(i + 1, 6)}
           index={i + 1}
         />
