@@ -16,7 +16,7 @@ import CtaSection from '../components/home/CtaSection.astro';
     <div class="container about-hero">
       <div class="about-hero__text animate-slide">
         <p class="about-eyebrow">Luc Lagasquie</p>
-        <h1>Développement web<br>&amp; conseil digital</h1>
+        <h1>Développement web &amp; conseil digital</h1>
         <p class="about-lead">
           J'ai créé Studio We Are en 2009, à 18 ans, par passion pour le web.
           Depuis, j'ai travaillé avec des agences, des graphistes, des PME et des particuliers
@@ -29,19 +29,18 @@ import CtaSection from '../components/home/CtaSection.astro';
         </p>
         <ul class="about-values">
           <li>
-            <strong>L'artisanat</strong> — chaque site est conçu avec soin, dans ses détails.
+            <span class="about-values__term"><strong>L'artisanat</strong></span>
+            <span class="about-values__desc">Chaque site est conçu avec soin, dans ses détails.</span>
           </li>
           <li>
-            <strong>La proximité</strong> — vous savez à qui vous parlez, qui travaille pour vous.
+            <span class="about-values__term"><strong>La proximité</strong></span>
+            <span class="about-values__desc">Vous savez à qui vous parlez, qui travaille pour vous.</span>
           </li>
           <li>
-            <strong>Le conseil</strong> — l'expertise au service de décisions éclairées.
+            <span class="about-values__term"><strong>Le conseil</strong></span>
+            <span class="about-values__desc">L'expertise au service de décisions éclairées.</span>
           </li>
         </ul>
-        <p class="about-geo">
-          Basé dans le Lot, je travaille à distance sans contrainte géographique. Parmi mes
-          références&nbsp;: France, Suisse, Canada.
-        </p>
       </div>
 
       <div class="about-hero__visual animate-fade">
@@ -147,7 +146,7 @@ import CtaSection from '../components/home/CtaSection.astro';
   }
 
   .about-eyebrow {
-    font-size: 0.75rem;
+    font-size: var(--text-s);
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
@@ -160,7 +159,7 @@ import CtaSection from '../components/home/CtaSection.astro';
   .about-hero__text h1 {
     letter-spacing: -0.02em;
     margin-bottom: 1.75rem;
-    max-width: 22ch;
+    max-width: 17ch;
     line-height: 1;
     font-size: var(--heading-2xl);
   }
@@ -189,7 +188,7 @@ import CtaSection from '../components/home/CtaSection.astro';
   }
 
   .about-values {
-    margin-top: 2rem;
+    margin-top: 1.4rem;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -198,21 +197,33 @@ import CtaSection from '../components/home/CtaSection.astro';
   }
 
   .about-values li {
-    color: var(--text-muted);
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.3rem;
     padding: 0.5rem 0;
     font-size: var(--text-s);
-    line-height: 1.55;
+    line-height: 1.25;
   }
 
-  .about-values li::before {
+  .about-values__term::before {
     content: '';
     width: 5px;
     height: 5px;
     flex-shrink: 0;
+    margin-bottom: 0.1em;
     background-color: var(--accent);
+  }
+
+  .about-values__term {
+    flex-shrink: 0;
+    display: inline-flex;
+    gap: .75em;
+    align-items: center;
+  }
+
+  .about-values__desc {
+    color: var(--text-muted);
+    margin-block-end: 3px;
   }
 
   .about-values strong {
@@ -221,12 +232,6 @@ import CtaSection from '../components/home/CtaSection.astro';
     font-weight: 400;
     font-size: 1.175rem;
     font-style: italic;
-  }
-
-  .about-geo {
-    margin-top: 2rem;
-    color: var(--text-muted);
-    max-width: none;
   }
 
   /* ===== VISUAL COLUMN ===== */
@@ -319,7 +324,7 @@ import CtaSection from '../components/home/CtaSection.astro';
 
   .collab {
     background: #f5f1ec;
-    border: 1px solid #e8e5e0;
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 2rem 2.25rem 1.75rem;
     display: flex;
@@ -513,9 +518,17 @@ import CtaSection from '../components/home/CtaSection.astro';
     .about-hero__visual {
       grid-template-columns: 1fr;
     }
+  }
 
-    .about-portrait {
-      aspect-ratio: 4/3;
+  @media (max-width: 530px) {
+    .about-values li {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .about-values li::before {
+      margin-top: 0.45em;
     }
   }
 </style>

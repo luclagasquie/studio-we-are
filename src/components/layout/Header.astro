@@ -263,16 +263,6 @@ const { transparent = false } = Astro.props;
     flex-shrink: 0;
   }
 
-  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.btn--outline) {
-    color: rgba(240, 237, 232, 0.8);
-    border-color: rgba(240, 237, 232, 0.3);
-  }
-  .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.btn--outline:hover) {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
   .header[data-transparent]:not(.is-scrolled):not(.menu-open) :global(.theme-toggle) {
     color: rgba(240, 237, 232, 0.6);
   }
