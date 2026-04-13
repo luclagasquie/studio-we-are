@@ -105,6 +105,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
       document.addEventListener('astro:page-load', () => {
         initLenis();
         initObserver();
+        // Reset scroll position — Lenis intercepts native scrollTo,
+        // so we must use its own API to jump to top without animation
+        // after a navigation, otherwise the previous page's scroll persists.
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+        }
+      });
+
+      // Safety net: reset native scroll before Lenis re-initialises
+      document.addEventListener('astro:after-swap', () => {
+        window.scrollTo(0, 0);
       });
     </script>
   </body>
