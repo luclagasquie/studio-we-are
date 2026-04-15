@@ -5,7 +5,7 @@ import Badge from '../../components/ui/Badge.astro';
 import Button from '../../components/ui/Button.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projets', ({ data }) => !data.draft);
+  const projects = await getCollection('projets');
   return projects.map((p) => ({
     params: { slug: p.data.slug },
     props: { project: p },
@@ -28,21 +28,16 @@ const d = project.data;
           <a href="/projets" class="case-back">← Tous les projets</a>
           <p class="case-sector">{d.secteur}</p>
           <h1 class="case-title">{d.title}</h1>
+          <p class="case-lieu"><svg class="case-lieu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>{d.lieu}</p>
           <p class="case-desc">{d.description}</p>
-          <div class="case-stack">
-            {d.stack.map((s) => <Badge label={s} />)}
+          <div class="case-badges">
+            {d.design && <Badge label="Design" />}
+            {d.developpement && <Badge label="Développement" />}
+            {d.venteEnLigne && <Badge label="E-commerce" />}
+            {d.collaborateur && d.collaborateur.length > 0 && (
+              <Badge label={d.collaborateur} variant="collaborateur" />
+            )}
           </div>
-          {d.url && (
-            <a
-              href={d.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="case-site-link"
-              aria-label={`Voir le site — ${d.title}`}
-            >
-              Voir le site ↗
-            </a>
-          )}
         </div>
       </div>
     </header>
@@ -106,6 +101,22 @@ const d = project.data;
     margin-bottom: 1.25rem;
   }
 
+  .case-lieu {
+    font-size: var(--text-s);
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35em;
+  }
+
+  .case-lieu-icon {
+    flex-shrink: 0;
+  }
+
   .case-desc {
     font-size: var(--text-l);
     color: var(--text-muted);
@@ -114,23 +125,11 @@ const d = project.data;
     max-width: none;
   }
 
-  .case-stack {
+  .case-badges {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
-  }
-
-  .case-site-link {
-    font-size: var(--text-s);
-    font-weight: 500;
-    color: var(--accent);
-    display: inline-block;
-    transition: color var(--transition);
-  }
-
-  .case-site-link:hover {
-    color: var(--accent-light);
   }
 
   .case-content {

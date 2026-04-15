@@ -6,16 +6,11 @@ import ProjectCard from '../../components/realisations/ProjectCard.astro';
 import ClientLogos from '../../components/home/ClientLogos.astro';
 import CtaSection from '../../components/home/CtaSection.astro';
 
-const allProjects = await getCollection('projets', ({ data }) =>
-  import.meta.env.DEV ? true : !data.draft
-);
+const allProjects = await getCollection('projets');
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
-const projects = allProjects.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-
-const INITIAL_COUNT = 5; // cartes visibles au chargement
-const BATCH_SIZE = 5;    // cartes révélées par clic
+const INITIAL_COUNT = 6;
+const BATCH_SIZE = 6;
 ---
 <PageLayout
   title="Projets — Studio We Are"
@@ -35,11 +30,12 @@ const BATCH_SIZE = 5;    // cartes révélées par clic
               title={p.data.title}
               description={p.data.description}
               secteur={p.data.secteur}
-              type={p.data.type}
-              stack={p.data.stack}
-              url={p.data.url}
+              lieu={p.data.lieu}
+              venteEnLigne={p.data.venteEnLigne}
+              design={p.data.design}
+              developpement={p.data.developpement}
+              collaborateur={p.data.collaborateur}
               image={p.data.image}
-              logo={p.data.logo}
               slug={p.data.slug}
               stagger={Math.min(i + 1, 6)}
               reverse={i % 2 === 1}
@@ -123,7 +119,7 @@ const BATCH_SIZE = 5;    // cartes révélées par clic
 </style>
 
 <script define:vars={{ BATCH_SIZE }}>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const btn = document.querySelector('[data-load-more]');
     if (!btn) return; // moins de INITIAL_COUNT projets : rien à faire
 

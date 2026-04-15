@@ -1,11 +1,16 @@
 ---
 export interface Props {
   label: string;
+  variant?: "default" | "collaborateur";
 }
 
-const { label } = Astro.props;
+const { label, variant = "default" } = Astro.props;
+
+const displayLabel = variant === "collaborateur"
+  ? `Collaboration / ${label}`
+  : label;
 ---
-<span class="badge">{label}</span>
+<span class:list={["badge", variant === "collaborateur" && "badge--collab"]}>{displayLabel}</span>
 
 <style>
   .badge {
@@ -14,10 +19,12 @@ const { label } = Astro.props;
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     border: 1px solid var(--border);
     border-radius: 999px;
     color: var(--text-muted);
     font-family: var(--font-body);
+  }
+
+  .badge.badge--collab {
   }
 </style>
