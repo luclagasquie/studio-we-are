@@ -8,13 +8,14 @@ const projets = defineCollection({
     slug: z.string(),
     description: z.string(),
     secteur: z.string(),
-    type: z.enum(['vitrine', 'e-commerce', 'wordpress', 'astro', 'headless']),
-    stack: z.array(z.string()),
-    url: z.string().url().optional(),
+    lieu: z.string(),
+    venteEnLigne: z.boolean().default(false),
+    design: z.boolean().default(false),
+    developpement: z.boolean().default(false),
+    collaborateur: z.string().optional(),
+    order: z.number().default(100),
     image: image().optional(),
-    logo: image().optional(),
-    draft: z.boolean().default(false),
-    date: z.string(),
+
   }),
 });
 
