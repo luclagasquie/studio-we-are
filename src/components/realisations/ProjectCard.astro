@@ -15,7 +15,7 @@ export interface Props extends HTMLAttributes<'article'> {
   collaborateur?: string;
   image?: ImageMetadata;
   slug: string;
-  url?: string;
+  siteUrl?: string;
   stagger?: number;
   reverse?: boolean;
   index?: number;
@@ -32,7 +32,7 @@ const {
   collaborateur,
   image,
   slug,
-  url,
+  siteUrl,
   stagger = 0,
   reverse = false,
   index = 0,
@@ -90,8 +90,8 @@ if (venteEnLigne) services.push('E-commerce');
     <div class="project-strip__link-wrapper">
       <p class="project-strip__lieu"><svg class="project-strip__lieu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>{lieu}</p>
 
-    {url && (
-      <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`voir le site de ${title}`} class="project-strip__link">
+    {siteUrl && (
+      <a href={siteUrl} target="_blank" rel="noopener noreferrer" aria-label={`voir le site de ${title}`} class="project-strip__link">
         <svg class="project-strip__link-globe-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10"/>
           <line x1="2" y1="12" x2="22" y2="12"/>
@@ -135,24 +135,6 @@ if (venteEnLigne) services.push('E-commerce');
 
   .project-strip:last-child {
     border-bottom: 1px solid var(--border);
-  }
-
-  /* Accent bar that slides in on hover — scoped to the image */
-  .project-strip__visual::before {
-    content: '';
-    position: absolute;
-    inset-block: 0;
-    left: 0;
-    width: 1px;
-    background: var(--accent);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 2;
-  }
-
-  .project-strip:hover .project-strip__visual::before {
-    transform: scaleY(1);
   }
 
   /* Reversed layout */
@@ -261,16 +243,6 @@ if (venteEnLigne) services.push('E-commerce');
     .project-strip__content {
       padding: clamp(2rem, 4vw, 3.5rem) 0;
     }
-  }
-
-  /* Subtle separator between visual + content */
-  .project-strip__visual::after {
-    content: '';
-    position: absolute;
-    inset-block: 0;
-    right: 0;
-    width: 1px;
-    background: var(--border);
   }
 
   .project-strip--reverse .project-strip__visual::after {

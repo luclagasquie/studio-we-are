@@ -20,7 +20,7 @@ const { id, title, tagline, image, stagger = 0 } = Astro.props;
   data-service-card
 >
   <div class="service-card__bg">
-    <Image src={image} alt="" width={560} height={380} class="service-card__image" />
+    <Image src={image} alt="" width={560} height={646} densities={[1, 2]} class="service-card__image" />
     <div class="service-card__overlay" aria-hidden="true"></div>
   </div>
   <div class="service-card__body">
@@ -53,6 +53,11 @@ const { id, title, tagline, image, stagger = 0 } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease-out;
+  }
+
+  .service-card:hover .service-card__image {
+    transform: scale(1.05);
   }
 
   /* ── Overlay ── */
@@ -65,16 +70,19 @@ const { id, title, tagline, image, stagger = 0 } = Astro.props;
       rgba(0, 0, 0, 0.25) 60%,
       rgba(0, 0, 0, 0.65) 100%
     );
-    transition: background 1s ease-out;
   }
 
-  .service-card:hover .service-card__overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.35) 0%,
-      rgba(0, 0, 0, 0.35) 60%,
-      rgba(0, 0, 0, 0.75) 100%
-    );
+  .service-card__overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+
+  .service-card:hover .service-card__overlay::after {
+    opacity: 1;
   }
 
   /* ── Body ── */
@@ -104,8 +112,14 @@ const { id, title, tagline, image, stagger = 0 } = Astro.props;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-card__overlay {
+    .service-card__overlay::after {
       transition: none;
+    }
+    .service-card__image {
+      transition: none;
+    }
+    .service-card:hover .service-card__image {
+      transform: none;
     }
   }
 </style>
