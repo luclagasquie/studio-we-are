@@ -6,6 +6,7 @@ export default defineConfig({
   site: 'https://studioweare.fr',
   integrations: [sitemap()],
   output: 'server',
+  trailingSlash: 'always',
   adapter: cloudflare({
     platformProxy: {
       enabled: false,

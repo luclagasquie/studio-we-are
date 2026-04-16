@@ -1,11 +1,24 @@
-/**
- * Astro API route — contact form handler
- * POST /api/contact
- */
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 
+export const prerender = false;
+
+export const ALL: APIRoute = async ({ request }) => {
+  if (request.method !== 'POST') {
+    return new Response(JSON.stringify({ error: 'Méthode non autorisée' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  return handlePost(request);
+};
+
 export const POST: APIRoute = async ({ request }) => {
+  return handlePost(request);
+};
+
+async function handlePost(request: Request) {
   let body;
   try {
     body = await request.formData();
@@ -20,7 +33,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (body.get('website')) {
     return new Response(null, {
       status: 303,
-      headers: { Location: '/contact?merci=1' },
+      headers: { Location: '/contact/?merci=1' },
     });
   }
 
@@ -91,6 +104,6 @@ export const POST: APIRoute = async ({ request }) => {
 
   return new Response(null, {
     status: 303,
-    headers: { Location: '/contact?merci=1' },
+    headers: { Location: '/contact/?merci=1' },
   });
 };
