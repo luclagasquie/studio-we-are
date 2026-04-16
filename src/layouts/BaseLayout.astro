@@ -36,12 +36,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
     {jsonLd && (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
-    />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <ClientRouter />
     <script is:inline>
       // Apply theme before paint — also re-applied after each View Transition swap
@@ -60,14 +55,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
   <body>
     <slot />
     <script>
-      import Lenis from 'lenis';
-
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      let lenis: InstanceType<typeof Lenis> | null = null;
+      let lenis: any = null;
 
-      function initLenis() {
+      async function initLenis() {
         if (reducedMotion) return;
+        const { default: Lenis } = await import('lenis');
         lenis?.destroy();
         lenis = new Lenis({
           duration: 1.2,
@@ -75,7 +69,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
           touchMultiplier: 1.5,
         });
         function raf(time: number) {
-          lenis!.raf(time);
+          lenis.raf(time);
           requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
@@ -97,23 +91,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
         animEls.forEach((el) => observer.observe(el));
       }
 
-      // Initial load
       initLenis();
       initObserver();
 
-      // After each View Transition
       document.addEventListener('astro:page-load', () => {
         initLenis();
         initObserver();
-        // Reset scroll position — Lenis intercepts native scrollTo,
-        // so we must use its own API to jump to top without animation
-        // after a navigation, otherwise the previous page's scroll persists.
         if (lenis) {
           lenis.scrollTo(0, { immediate: true });
         }
       });
 
-      // Safety net: reset native scroll before Lenis re-initialises
       document.addEventListener('astro:after-swap', () => {
         window.scrollTo(0, 0);
       });

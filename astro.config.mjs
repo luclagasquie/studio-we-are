@@ -5,4 +5,8 @@ export default defineConfig({
   site: 'https://studioweare.fr',
   integrations: [sitemap()],
   output: 'static',
+  prefetch: {
+    defaultStrategy: 'viewport',
+    prefetchAll: false,
+  },
 });
