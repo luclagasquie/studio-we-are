@@ -2,15 +2,18 @@
 import SectionTitle from '../ui/SectionTitle.astro';
 import ServiceCard from './ServiceCard.astro';
 import servicesData from '../../data/services.json';
-import siteInternetQuercy from '../../assets/services/site-internet-quercy.jpeg';
-import siteInternetAstro from '../../assets/services/site-internet-astro.jpg';
-import siteInternetSurMesure from '../../assets/services/site-internet-sur-mesure.jpg';
+import type { ImageMetadata } from 'astro';
 
-const imageMap: Record<string, typeof siteInternetQuercy> = {
-  './assets/services/site-internet-quercy.jpeg': siteInternetQuercy,
-  './assets/services/site-internet-astro.jpg': siteInternetAstro,
-  './assets/services/site-internet-sur-mesure.jpg': siteInternetSurMesure,
-};
+const serviceImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/services/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+
+function getServiceImage(filename: string): ImageMetadata {
+  const key = Object.keys(serviceImages).find(k => k.endsWith('/' + filename));
+  if (!key) throw new Error(`Service image not found: ${filename}`);
+  return serviceImages[key].default;
+}
 
 type Service = {
   id: string;
@@ -41,7 +44,7 @@ const services = servicesData as Service[];
           title={s.title}
           tagline={s.tagline}
           icon={s.icon}
-          image={imageMap[s.image]}
+          image={getServiceImage(s.image)}
           stagger={Math.min(i + 1, 6)}
           index={i + 1}
         />
@@ -86,7 +89,7 @@ const services = servicesData as Service[];
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-top: 3rem;
+    margin-top: 4rem;
   }
 
   @media (max-width: 900px) {
@@ -102,7 +105,7 @@ const services = servicesData as Service[];
   }
 
   .services-foot {
-    margin-top: 3rem;
+    margin-top: 4rem;
     display: flex;
     justify-content: center;
   }
