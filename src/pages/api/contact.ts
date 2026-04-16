@@ -10,11 +10,11 @@ export const GET: APIRoute = async () => {
   });
 };
 
-export const POST: APIRoute = async ({ request }) => {
-  return handlePost(request);
+export const POST: APIRoute = async ({ request, locals }) => {
+  return handlePost(request, locals);
 };
 
-async function handlePost(request: Request) {
+async function handlePost(request: Request, locals: App.Locals) {
   let body;
   try {
     body = await request.formData();
@@ -64,7 +64,7 @@ async function handlePost(request: Request) {
   }
 
   // Check for API key
-  const apiKey = import.meta.env.RESEND_API_KEY;
+  const apiKey = import.meta.env.RESEND_API_KEY || locals.runtime?.env?.RESEND_API_KEY;
   if (!apiKey) {
     console.error('RESEND_API_KEY not configured');
     return new Response(JSON.stringify({ error: 'Configuration serveur manquante' }), {
