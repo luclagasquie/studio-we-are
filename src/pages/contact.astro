@@ -444,3 +444,43 @@ const objetOptions = [
     }
   }
 </style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = form.querySelector<HTMLButtonElement>('[type="submit"]');
+      if (btn) {
+        btn.disabled = true;
+        btn.dataset.originalText = btn.textContent ?? '';
+        btn.textContent = 'Envoi…';
+      }
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          redirect: 'manual',
+        });
+
+        if (res.status === 303 || res.type === 'opaqueredirect') {
+          window.location.href = '/contact/?merci=1';
+          return;
+        }
+
+        const data = await res.json().catch(() => null);
+        const msg = data?.error ?? 'Une erreur est survenue. Veuillez réessayer.';
+        alert(msg);
+      } catch {
+        alert('Impossible de se connecter au serveur. Veuillez réessayer.');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = btn.dataset.originalText ?? 'Envoyer le message';
+        }
+      }
+    });
+  }
+</script>
