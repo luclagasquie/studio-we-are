@@ -20,7 +20,7 @@ const { id, title, tagline, image, stagger = 0 } = Astro.props;
   data-service-card
 >
   <div class="service-card__bg">
-    <Image src={image} alt="" width={560} height={646} densities={[1, 2]} class="service-card__image" />
+    <Image src={image} alt="" width={560} height={646} densities={[1, 2]} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" class="service-card__image" />
     <div class="service-card__overlay" aria-hidden="true"></div>
   </div>
   <div class="service-card__body">

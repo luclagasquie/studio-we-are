@@ -202,12 +202,11 @@ a {
   border-radius: var(--radius-sm);
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+/* ===== MARQUEE ===== */
+/* --marquee-shift is the positive width of one logo group (set by the ClientLogos script).
+   calc(-1 * …) forces left-to-right scrolling regardless of variable sign. */
+@keyframes marquee-logos {
+  from { transform: translateX(0); }
+  to   { transform: translateX(var(--marquee-shift)); }
 }
+
