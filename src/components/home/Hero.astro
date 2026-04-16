@@ -234,10 +234,19 @@ import heroBg from '../../assets/hero/luc-lagasquie-paysage-lot.webp';
   }
 
   @media (max-width: 640px) {
+
+    .hero {
+      min-height: auto;
+    }
+
     .hero__foot {
       flex-direction: column;
       align-items: flex-start;
       gap: 1.5rem;
+    }
+
+    .hero__eyebrow {
+      display: none;
     }
 
     .hero__rule-v {
@@ -247,6 +256,7 @@ import heroBg from '../../assets/hero/luc-lagasquie-paysage-lot.webp';
     /* Reserve space for the "Défiler" scroll indicator (~170px from bottom) */
     .hero__content {
       padding-bottom: 11rem;
+      padding-block-start: 4rem;
     }
   }
 </style>
