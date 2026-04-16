@@ -1,12 +1,11 @@
 /**
- * Cloudflare Pages Function — contact form handler
+ * Astro API route — contact form handler
  * POST /api/contact
  */
 import { Resend } from 'resend';
+import type { APIRoute } from 'astro';
 
-export async function onRequestPost(context) {
-  const { request, env } = context;
-
+export const POST: APIRoute = async ({ request }) => {
   let body;
   try {
     body = await request.formData();
@@ -19,7 +18,10 @@ export async function onRequestPost(context) {
 
   // Honeypot — silently discard bot submissions
   if (body.get('website')) {
-    return Response.redirect(new URL('/contact?merci=1', request.url).toString(), 303);
+    return new Response(null, {
+      status: 303,
+      headers: { Location: '/contact?merci=1' },
+    });
   }
 
   const nom = body.get('nom')?.toString().trim() ?? '';
@@ -53,7 +55,7 @@ export async function onRequestPost(context) {
   }
 
   // Check for API key
-  const apiKey = env.RESEND_API_KEY;
+  const apiKey = import.meta.env.RESEND_API_KEY;
   if (!apiKey) {
     console.error('RESEND_API_KEY not configured');
     return new Response(JSON.stringify({ error: 'Configuration serveur manquante' }), {
@@ -67,7 +69,7 @@ export async function onRequestPost(context) {
   const { error } = await resend.emails.send({
     from: 'Studio We Are <email@we-are.fr>',
     to: ['luc@we-are.fr'],
-    reply_to: `${nom} <${email}>`,
+    replyTo: `${nom} <${email}>`,
     subject: `[Contact] ${objet} — ${nom}`,
     html: [
       `<p><strong>Nom :</strong> ${nom}</p>`,
@@ -87,5 +89,8 @@ export async function onRequestPost(context) {
     });
   }
 
-  return Response.redirect(new URL('/contact?merci=1', request.url).toString(), 303);
-}
+  return new Response(null, {
+    status: 303,
+    headers: { Location: '/contact?merci=1' },
+  });
+};
