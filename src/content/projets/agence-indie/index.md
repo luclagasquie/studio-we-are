@@ -9,4 +9,6 @@ design: false
 developpement: true
 collaborateur: "Céline Andrieu"
 order: 90
+url: "#"
+image: "./studio-we-are-site-web-agence-indie-alt.jpeg"
 ---

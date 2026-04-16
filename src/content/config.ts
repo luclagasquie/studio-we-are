@@ -14,6 +14,7 @@ const projets = defineCollection({
     developpement: z.boolean().default(false),
     collaborateur: z.string().optional(),
     order: z.number().default(100),
+    url: z.string().optional(),
     image: image().optional(),
 
   }),

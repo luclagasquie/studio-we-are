@@ -9,4 +9,6 @@ design: false
 developpement: true
 collaborateur: "Euré-k !"
 order: 120
+url: "#"
+image: "./studio-we-are-site-web-groupe-delbos.jpeg"
 ---

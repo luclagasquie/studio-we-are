@@ -9,4 +9,6 @@ design: false
 developpement: true
 collaborateur: "Euré-k !"
 order: 30
+url: "#"
+image: "./studio-we-are-site-web-aquitaine-cars.jpeg"
 ---

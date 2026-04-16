@@ -9,4 +9,6 @@ design: false
 developpement: true
 collaborateur: "Céline Andrieu"
 order: 20
+url: "#"
+image: ./atelier-geraldine-studio-we-are.jpeg
 ---

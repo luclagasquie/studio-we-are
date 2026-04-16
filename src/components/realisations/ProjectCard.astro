@@ -15,6 +15,7 @@ export interface Props extends HTMLAttributes<'article'> {
   collaborateur?: string;
   image?: ImageMetadata;
   slug: string;
+  url?: string;
   stagger?: number;
   reverse?: boolean;
   index?: number;
@@ -31,6 +32,7 @@ const {
   collaborateur,
   image,
   slug,
+  url,
   stagger = 0,
   reverse = false,
   index = 0,
@@ -85,7 +87,25 @@ if (venteEnLigne) services.push('E-commerce');
 
     </div>
 
-    <p class="project-strip__lieu"><svg class="project-strip__lieu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>{lieu}</p>
+    <div class="project-strip__link-wrapper">
+      <p class="project-strip__lieu"><svg class="project-strip__lieu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>{lieu}</p>
+
+    {url && (
+      <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`voir le site de ${title}`} class="project-strip__link">
+        <svg class="project-strip__link-globe-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span class="project-strip__link-text" aria-hidden="true">Voir le site</span>
+        <svg class="project-strip__link-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7"/>
+          <path d="M7 7h10v10"/>
+        </svg>
+      </a>
+    )}
+    </div>
+
     <p class="project-strip__desc">{description}</p>
 
     <div class="project-strip__badges">
@@ -94,6 +114,8 @@ if (venteEnLigne) services.push('E-commerce');
         <Badge label={collaborateur} variant="collaborateur" />
       )}
     </div>
+
+    
   </div>
 </article>
 
@@ -108,6 +130,7 @@ if (venteEnLigne) services.push('E-commerce');
     overflow: hidden;
     padding-block: clamp(2rem, 4vw, 3.5rem);
     transition: border-color var(--transition);
+    align-items: center;
   }
 
   .project-strip:last-child {
@@ -149,26 +172,35 @@ if (venteEnLigne) services.push('E-commerce');
   .project-strip__visual {
     position: relative;
     overflow: hidden;
+    aspect-ratio: 4 / 3;
   }
 
   .project-strip__img {
     width: 100%;
     height: 100%;
-    aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
-    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .project-strip:hover .project-strip__img {
     transform: scale(1.03);
   }
 
+  @media (width > 900px) {
+    .project-strip__img {
+      filter: grayscale(1);
+    }
+
+    .project-strip:hover .project-strip__img {
+      filter: grayscale(0);
+    }
+  }
+
   /* ─── Placeholder ────────────────────────────────── */
   .project-strip__placeholder {
     width: 100%;
     height: 100%;
-    aspect-ratio: 4 / 3;
     background: linear-gradient(
       135deg,
       var(--bg-alt) 0%,
@@ -223,6 +255,12 @@ if (venteEnLigne) services.push('E-commerce');
     justify-content: center;
     gap: 1.25rem;
     position: relative;
+  }
+
+  @media (width <= 768px) {
+    .project-strip__content {
+      padding: clamp(2rem, 4vw, 3.5rem) 0;
+    }
   }
 
   /* Subtle separator between visual + content */
@@ -295,6 +333,13 @@ if (venteEnLigne) services.push('E-commerce');
     flex-shrink: 0;
   }
 
+  .project-strip__link-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
   /* ─── Description ────────────────────────────────── */
   .project-strip__desc {
     color: var(--text-muted);
@@ -308,6 +353,44 @@ if (venteEnLigne) services.push('E-commerce');
     display: flex;
     gap: 0.4rem;
     flex-wrap: wrap;
+  }
+
+  /* ─── Link "Voir le site" ─────────────────────────── */
+  .project-strip__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-size: var(--text-s);
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color var(--transition);
+    align-self: flex-start;
+    letter-spacing: -0.02em;
+  }
+
+  .project-strip__link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    color: var(--accent);
+  }
+
+  .project-strip__link-text {
+    transition: transform 0.3s ease;
+  }
+
+  .project-strip__link-icon {
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-strip__link-globe-icon {
+    flex-shrink: 0;
+  }
+
+  .project-strip__link:hover .project-strip__link-icon {
+    transform: rotate(45deg);
   }
 
   /* ─── Responsive ─────────────────────────────────── */
@@ -324,10 +407,6 @@ if (venteEnLigne) services.push('E-commerce');
 
     .project-strip--reverse .project-strip__content {
       order: unset;
-    }
-
-    .project-strip__visual {
-      height: 260px;
     }
 
     .project-strip__visual::after {
