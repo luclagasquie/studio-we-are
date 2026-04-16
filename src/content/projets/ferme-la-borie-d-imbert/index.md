@@ -9,4 +9,6 @@ design: false
 developpement: true
 collaborateur: "Céline Andrieu, Euré-k !"
 order: 70
+url: "#"
+image: "./studio-we-are-site-web-ferme-borie-imbert.jpeg"
 ---

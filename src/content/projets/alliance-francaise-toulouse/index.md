@@ -9,4 +9,6 @@ design: true
 developpement: true
 collaborateur: "Euré-k !"
 order: 60
+url: "#"
+image: "./studio-we-are-site-web-alliance-francaise-toulouse.jpeg"
 ---

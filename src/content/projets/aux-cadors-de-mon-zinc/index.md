@@ -9,4 +9,6 @@ design: true
 developpement: true
 collaborateur: ""
 order: 150
+url: "#"
+image: "./studio-we-are-site-web-aux-cadors-de-mon-zinc.jpeg"
 ---
