@@ -3,15 +3,11 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-export const ALL: APIRoute = async ({ request }) => {
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Méthode non autorisée' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  return handlePost(request);
+export const GET: APIRoute = async () => {
+  return new Response(null, {
+    status: 301,
+    headers: { Location: '/contact/' },
+  });
 };
 
 export const POST: APIRoute = async ({ request }) => {
