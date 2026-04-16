@@ -9,6 +9,6 @@ design: true
 developpement: true
 collaborateur: "Euré-k !"
 order: 45
-url: "#"
+url: "https://simpleetchic.ch/"
 image: ./simple-chic-studio-we-are.jpeg
 ---

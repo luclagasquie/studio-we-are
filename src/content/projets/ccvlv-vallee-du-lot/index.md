@@ -9,6 +9,6 @@ design: true
 developpement: true
 collaborateur: "Euré-k !"
 order: 130
-url: "#"
+url: "https://ccvlv.fr/"
 image: "./studio-we-are-site-web-ccvlv.jpeg"
 ---
