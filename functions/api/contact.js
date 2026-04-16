@@ -2,8 +2,10 @@
  * Cloudflare Pages Function — contact form handler
  * POST /api/contact
  */
+import { Resend } from 'resend';
+
 export async function onRequestPost(context) {
-  const { request } = context;
+  const { request, env } = context;
 
   let body;
   try {
@@ -50,40 +52,35 @@ export async function onRequestPost(context) {
     });
   }
 
-  // Send via Mailchannels (Cloudflare Pages native — no API key required)
-  const emailPayload = {
-    personalizations: [
-      {
-        to: [{ email: 'luc@studioweare.fr', name: 'Luc Lagasquie' }],
-      },
-    ],
-    from: { email: 'noreply@studioweare.fr', name: 'Studio We Are — Formulaire' },
-    reply_to: { email, name: nom },
-    subject: `[Contact] ${objet} — ${nom}`,
-    content: [
-      {
-        type: 'text/plain',
-        value: [
-          `Nom : ${nom}`,
-          `Email : ${email}`,
-          `Téléphone : ${telephone || '—'}`,
-          `Objet : ${objet}`,
-          '',
-          message,
-        ].join('\n'),
-      },
-    ],
-  };
+  // Check for API key
+  const apiKey = env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error('RESEND_API_KEY not configured');
+    return new Response(JSON.stringify({ error: 'Configuration serveur manquante' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
-  const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(emailPayload),
+  const resend = new Resend(apiKey);
+
+  const { error } = await resend.emails.send({
+    from: 'Studio We Are <email@we-are.fr>',
+    to: ['luc@we-are.fr'],
+    reply_to: `${nom} <${email}>`,
+    subject: `[Contact] ${objet} — ${nom}`,
+    html: [
+      `<p><strong>Nom :</strong> ${nom}</p>`,
+      `<p><strong>Email :</strong> <a href="mailto:${email}">${email}</a></p>`,
+      telephone ? `<p><strong>Téléphone :</strong> ${telephone}</p>` : '',
+      `<p><strong>Objet :</strong> ${objet}</p>`,
+      `<hr>`,
+      `<p>${message.replace(/\n/g, '<br>')}</p>`,
+    ].filter(Boolean).join('\n'),
   });
 
-  // Mailchannels returns 202 on success
-  if (!res.ok && res.status !== 202) {
-    console.error('Mailchannels error:', res.status, await res.text());
+  if (error) {
+    console.error('Resend error:', error);
     return new Response(JSON.stringify({ error: "Erreur lors de l'envoi" }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
