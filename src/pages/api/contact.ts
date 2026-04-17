@@ -33,6 +33,39 @@ async function handlePost(request: Request, locals: App.Locals) {
     });
   }
 
+  // Verify Turnstile
+  const turnstileToken = body.get('cf-turnstile-response')?.toString().trim() ?? '';
+  if (!turnstileToken) {
+    return new Response(JSON.stringify({ error: 'Vérification anti-spot requise' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY || locals.runtime?.env?.TURNSTILE_SECRET_KEY;
+  if (!turnstileSecret) {
+    console.error('TURNSTILE_SECRET_KEY not configured');
+    return new Response(JSON.stringify({ error: 'Configuration serveur manquante' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ secret: turnstileSecret, response: turnstileToken }),
+  });
+  const turnstileData = await turnstileRes.json();
+
+  if (!turnstileData.success) {
+    console.error('Turnstile verification failed:', turnstileData['error-codes']);
+    return new Response(JSON.stringify({ error: 'Vérification anti-spot échouée' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const nom = body.get('nom')?.toString().trim() ?? '';
   const email = body.get('email')?.toString().trim() ?? '';
   const objet = body.get('objet')?.toString().trim() ?? '';
