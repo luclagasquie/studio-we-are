@@ -173,6 +173,8 @@ const objetOptions = [
               ></textarea>
             </div>
 
+            <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY} data-theme="light"></div>
+
             <Button type="submit" variant="primary" size="md" class="form-submit">
               Envoyer le message
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -445,6 +447,8 @@ const objetOptions = [
   }
 </style>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer is:inline></script>
+
 <script>
   const form = document.querySelector<HTMLFormElement>('.contact-form');
   if (form) {
@@ -459,9 +463,22 @@ const objetOptions = [
       }
 
       try {
+        let token = '';
+        if (window.turnstile) {
+          token = await new Promise<string>((resolve) => {
+            window.turnstile!.ready(() => {
+              const response = window.turnstile!.getResponse();
+              resolve(response ?? '');
+            });
+          });
+        }
+
+        const formData = new FormData(form);
+        formData.append('cf-turnstile-response', token);
+
         const res = await fetch(form.action, {
           method: 'POST',
-          body: new FormData(form),
+          body: formData,
           redirect: 'manual',
         });
 
