@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://we-are.fr",
   output: "static",
-  trailingSlash: "never",
+  trailingSlash: "always",
   adapter: cloudflare({
     platformProxy: {
       enabled: false,
