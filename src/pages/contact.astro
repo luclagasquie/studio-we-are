@@ -465,12 +465,7 @@ const objetOptions = [
       try {
         let token = '';
         if (window.turnstile) {
-          token = await new Promise<string>((resolve) => {
-            window.turnstile!.ready(() => {
-              const response = window.turnstile!.getResponse();
-              resolve(response ?? '');
-            });
-          });
+          token = window.turnstile.getResponse() ?? '';
         }
 
         const formData = new FormData(form);
