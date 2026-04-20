@@ -27,7 +27,7 @@ import CtaSection from '../components/home/CtaSection.astro';
           technologie doit servir les gens et non l'inverse, et le plaisir de construire des
           choses qui durent.
         </p>
-        <ul class="about-values">
+        <ul class="about-values" role="list">
           <li>
             <span class="about-values__term"><strong>L'artisanat</strong></span>
             <span class="about-values__desc">Chaque site est conçu avec soin, dans ses détails.</span>
@@ -88,7 +88,7 @@ import CtaSection from '../components/home/CtaSection.astro';
             <Image src={celinePhoto} alt="Céline Andrieux" class="collab__avatar" widths={[128]} sizes="64px" />
             <div class="collab__identity">
               <h3 class="collab__name">
-                <a class="collab__link" href="https://celineandrieu.com/" target="_blank" rel="noopener noreferrer">Céline Andrieu</a>
+                <a class="collab__link" href="https://celineandrieu.com/" target="_blank" rel="noopener noreferrer">Céline Andrieu <span class="sr-only">(ouvre dans un nouvel onglet)</span></a>
               </h3>
               <p class="collab__role">Graphiste indépendante</p>
             </div>
@@ -115,7 +115,7 @@ import CtaSection from '../components/home/CtaSection.astro';
             <Image src={eurekPhoto} alt="Euré-k !" class="collab__avatar" widths={[128]} sizes="64px" />
             <div class="collab__identity">
               <h3 class="collab__name">
-                <a class="collab__link" href="https://eure-k.fr" target="_blank" rel="noopener noreferrer">Euré-k&nbsp;!</a>
+                <a class="collab__link" href="https://eure-k.fr" target="_blank" rel="noopener noreferrer">Euré-k&nbsp;! <span class="sr-only">(ouvre dans un nouvel onglet)</span></a>
               </h3>
               <p class="collab__role">Agence de communication partenaire</p>
             </div>
@@ -259,6 +259,7 @@ import CtaSection from '../components/home/CtaSection.astro';
     transition: opacity 0.4s ease;
     position: relative;
     z-index: 1;
+    border-radius: var(--radius-m);
   }
 
   .is-loaded .about-portrait {
@@ -275,6 +276,7 @@ import CtaSection from '../components/home/CtaSection.astro';
     border: 1px solid var(--border);
     pointer-events: none;
     z-index: -1;
+    border-radius: var(--radius-m);
   }
 
   .about-portrait {
@@ -343,7 +345,7 @@ import CtaSection from '../components/home/CtaSection.astro';
   .collab {
     background: #f5f1ec;
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: var(--radius-m);
     padding: 2rem 2.25rem 1.75rem;
     display: flex;
     flex-direction: column;
@@ -550,19 +552,3 @@ import CtaSection from '../components/home/CtaSection.astro';
     }
   }
 </style>
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const portraitWrap = document.querySelector('.about-portrait-wrap');
-    if (!portraitWrap) return;
-    const img = portraitWrap.querySelector('.about-portrait');
-    if (img) {
-      if (img.complete) {
-        portraitWrap.classList.add('is-loaded');
-      } else {
-        img.addEventListener('load', () => portraitWrap.classList.add('is-loaded'));
-        img.addEventListener('error', () => portraitWrap.classList.add('is-loaded'));
-      }
-    }
-  });
-</script>

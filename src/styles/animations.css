@@ -122,7 +122,7 @@
   pointer-events: none;
 }
 
-.is-loaded .image-shimmer::before {
+.image-shimmer.is-loaded::before {
   opacity: 0;
 }
 
@@ -140,6 +140,11 @@
 
   ::view-transition-old(root),
   ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) {
     animation: none !important;
   }
 

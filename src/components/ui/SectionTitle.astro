@@ -13,7 +13,7 @@ const LabelTag = labelTag;
 <div class:list={['section-title', align === 'center' && 'section-title--center']}>
   {label && <LabelTag class="section-title__label">{label}</LabelTag>}
   <h2 class="section-title__heading">{title}</h2>
-  {subtitle && <p class="section-title__sub" set:html={subtitle} />}
+  {subtitle && <p class="section-title__sub" set:text={subtitle} />}
 </div>
 
 <style>

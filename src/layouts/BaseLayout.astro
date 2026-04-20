@@ -44,10 +44,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
       // Apply theme before paint — also re-applied after each View Transition swap
       function applyTheme() {
         var stored = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = (stored === 'dark' || stored === 'light') ? stored : (prefersDark ? 'dark' : 'light');
         document.documentElement.setAttribute(
           'data-theme',
-          stored ?? 'light'
+          theme
         );
       }
       applyTheme();
@@ -57,12 +58,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
   <body class:list={[darkHero && 'body--dark-hero']}>
     <slot />
     <script>
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function isReducedMotion() {
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }
 
       let lenis: any = null;
 
       async function initLenis() {
-        if (reducedMotion) return;
+        if (isReducedMotion()) return;
         const { default: Lenis } = await import('lenis');
         lenis?.destroy();
         lenis = new Lenis({
@@ -93,12 +96,28 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
         animEls.forEach((el) => observer.observe(el));
       }
 
+      function initImageShimmer() {
+        const containers = document.querySelectorAll('.image-shimmer:not(.is-loaded)');
+        containers.forEach((container) => {
+          const img = container.querySelector('img');
+          if (!img) return;
+          if (img.complete && img.naturalHeight > 0) {
+            container.classList.add('is-loaded');
+          } else {
+            img.addEventListener('load', () => container.classList.add('is-loaded'), { once: true });
+            img.addEventListener('error', () => container.classList.add('is-loaded'), { once: true });
+          }
+        });
+      }
+
       initLenis();
       initObserver();
+      initImageShimmer();
 
       document.addEventListener('astro:page-load', () => {
         initLenis();
         initObserver();
+        initImageShimmer();
         if (lenis) {
           lenis.scrollTo(0, { immediate: true });
         }

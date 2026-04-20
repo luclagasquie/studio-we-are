@@ -60,6 +60,8 @@ const { transparent = false } = Astro.props;
   id="site-mobile-nav"
   aria-hidden="true"
   aria-label="Menu de navigation mobile"
+  role="dialog"
+  aria-modal="true"
 >
   <nav class="mobile-nav__nav" aria-label="Navigation principale mobile">
     <ul class="mobile-nav__list" role="list">
@@ -101,6 +103,7 @@ const { transparent = false } = Astro.props;
       header.classList.remove('menu-open');
       mobileNav.classList.remove('is-open');
       mobileNav.setAttribute('aria-hidden', 'true');
+      mobileNav.removeAttribute('aria-modal');
       document.body.style.overflow = '';
     }
 
@@ -111,7 +114,35 @@ const { transparent = false } = Astro.props;
       header.classList.add('menu-open');
       mobileNav.classList.add('is-open');
       mobileNav.setAttribute('aria-hidden', 'false');
+      mobileNav.setAttribute('aria-modal', 'true');
       document.body.style.overflow = 'hidden';
+      // Focus the first link in the mobile nav
+      const firstLink = mobileNav.querySelector('a');
+      if (firstLink) firstLink.focus();
+    }
+
+    // Focus trap for mobile menu
+    function trapFocus(e: KeyboardEvent) {
+      if (!mobileNav || !mobileNav.classList.contains('is-open')) return;
+      if (e.key !== 'Tab') return;
+      const focusable = mobileNav.querySelectorAll<HTMLElement>(
+        'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const focusableArray = Array.from(focusable);
+      if (focusableArray.length === 0) return;
+      const firstFocusable = focusableArray[0];
+      const lastFocusable = focusableArray[focusableArray.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
     }
 
     if (btn && header && mobileNav) {
@@ -129,6 +160,7 @@ const { transparent = false } = Astro.props;
           closeMenu();
           btn.focus();
         }
+        trapFocus(e);
       }, { signal });
     }
 
@@ -167,7 +199,8 @@ const { transparent = false } = Astro.props;
   }
   .skip-link:focus {
     top: 0;
-    outline: none;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
   }
 
   /* ===== HEADER BAR ===== */
@@ -357,7 +390,7 @@ const { transparent = false } = Astro.props;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
     }
 
     .mobile-nav__link {

@@ -16,7 +16,7 @@ const { overlayHeader = false, darkHero = false, ...rest } = Astro.props;
 ---
 <BaseLayout {...rest} darkHero={darkHero}>
   <Header transparent={overlayHeader} />
-  <main id="main-content" class:list={[!overlayHeader && 'main--offset']}>
+  <main id="main-content" tabindex="-1" class:list={[!overlayHeader && 'main--offset']}>
     <slot />
   </main>
   <Footer />

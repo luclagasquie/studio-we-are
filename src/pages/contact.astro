@@ -63,7 +63,7 @@ const objetOptions = [
               </svg>
               Périmètre
             </dt>
-            <dd>France & international,<br>je parle français et anglais 🇫🇷 🇬🇧</dd>
+            <dd>France & international,<br>je parle français et anglais <span aria-hidden="true">🇫🇷 🇬🇧</span></dd>
           </div>
         </dl>
       </div>
@@ -91,22 +91,24 @@ const objetOptions = [
             method="POST"
             action="/api/contact/"
           >
+            <!-- Live region for form status messages -->
+            <div id="form-status" aria-live="polite" class="sr-only" role="status"></div>
             <!-- Honeypot anti-spam -->
             <div class="visually-hidden" aria-hidden="true">
-              <label for="website">Ne pas remplir ce champ</label>
               <input
                 type="text"
-                id="website"
-                name="website"
+                id="hp-field"
+                name="_hp"
                 tabindex="-1"
                 autocomplete="off"
+                aria-label="Ne pas remplir ce champ"
               />
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="nom" class="form-label">
-                  Nom <span class="form-required" aria-label="champ obligatoire">*</span>
+                  Nom <span class="form-required" aria-label="champ obligatoire" aria-hidden="true">*</span>
                 </label>
                 <input
                   type="text"
@@ -119,7 +121,7 @@ const objetOptions = [
               </div>
               <div class="form-group">
                 <label for="email" class="form-label">
-                  Email <span class="form-required" aria-label="champ obligatoire">*</span>
+                  Email <span class="form-required" aria-label="champ obligatoire" aria-hidden="true">*</span>
                 </label>
                 <input
                   type="email"
@@ -147,7 +149,7 @@ const objetOptions = [
               </div>
               <div class="form-group">
                 <label for="objet" class="form-label">
-                  Objet <span class="form-required" aria-label="champ obligatoire">*</span>
+                  Objet <span class="form-required" aria-label="champ obligatoire" aria-hidden="true">*</span>
                 </label>
                 <select id="objet" name="objet" required class="form-input">
                   {objetOptions.map((opt) => (
@@ -161,7 +163,7 @@ const objetOptions = [
 
             <div class="form-group">
               <label for="message" class="form-label">
-                Message <span class="form-required" aria-label="champ obligatoire">*</span>
+                Message <span class="form-required" aria-label="champ obligatoire" aria-hidden="true">*</span>
               </label>
               <textarea
                 id="message"
@@ -312,7 +314,8 @@ const objetOptions = [
   }
 
   .form-input:focus {
-    outline: none;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
     border-color: var(--accent);
   }
 
@@ -464,10 +467,14 @@ const objetOptions = [
       e.preventDefault();
 
       const btn = form.querySelector<HTMLButtonElement>('[type="submit"]');
+      const statusEl = document.getElementById('form-status');
       if (btn) {
         btn.disabled = true;
         btn.dataset.originalText = btn.textContent ?? '';
-        btn.textContent = 'Envoi…';
+        btn.textContent = 'Envoi en cours…';
+      }
+      if (statusEl) {
+        statusEl.textContent = 'Envoi en cours…';
       }
 
       try {
@@ -492,9 +499,15 @@ const objetOptions = [
 
         const data = await res.json().catch(() => null);
         const msg = data?.error ?? 'Une erreur est survenue. Veuillez réessayer.';
-        alert(msg);
+        if (statusEl) {
+          statusEl.textContent = msg;
+          statusEl.setAttribute('role', 'alert');
+        }
       } catch {
-        alert('Impossible de se connecter au serveur. Veuillez réessayer.');
+        if (statusEl) {
+          statusEl.textContent = 'Impossible de se connecter au serveur. Veuillez réessayer.';
+          statusEl.setAttribute('role', 'alert');
+        }
       } finally {
         if (btn) {
           btn.disabled = false;
