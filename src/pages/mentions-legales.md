@@ -11,7 +11,7 @@ description: Mentions légales de Studio We Are — éditeur, hébergeur, propri
 **Studio We Are**  
 Responsable de publication : Luc Lagasquie  
 SIRET : 512 352 485 00050  
-Adresse : 220 chemin du Bartassou, 46700 Sérignac, France
+Adresse : 1280 chemin de la Viste, 46330 Sauliac-sur-Célé, France
 
 ## Hébergeur
 
