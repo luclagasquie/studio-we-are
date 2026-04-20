@@ -1,18 +1,18 @@
-import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
-import sitemap from '@astrojs/sitemap';
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: 'https://we-are.fr',
-  output: 'hybrid',
-  trailingSlash: 'always',
+  site: "https://we-are.fr",
+  output: "static",
+  trailingSlash: "always",
   adapter: cloudflare({
     platformProxy: {
       enabled: false,
     },
   }),
   prefetch: {
-    defaultStrategy: 'viewport',
+    defaultStrategy: "viewport",
     prefetchAll: false,
   },
   integrations: [sitemap()],
