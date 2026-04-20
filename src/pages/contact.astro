@@ -21,7 +21,7 @@ const objetOptions = [
 ---
 <PageLayout
   title="Contact — Studio We Are"
-  description="Parlons de votre projet web. Basé dans le Lot, Studio We Are intervient partout en France et à l'international. Réponse sous 48h."
+  description="Parlons de votre projet web. Basé dans le Lot, Studio We Are intervient partout en France et à l'international. Réponse rapide."
 >
   <section class="section contact-section">
     <div class="container contact-layout">
@@ -79,7 +79,7 @@ const objetOptions = [
               </svg>
             </div>
             <h2>Message envoyé !</h2>
-            <p>Merci pour votre message. Je vous répondrai sous 48h en semaine.</p>
+            <p>Merci pour votre message. Je reviens rapidement vers vous.</p>
             <div class="merci-actions">
               <a href="/" class="merci-link merci-link--primary">Retour à l'accueil</a>
               <a href="/contact/" class="merci-link merci-link--secondary">Envoyer un autre message</a>
@@ -450,6 +450,14 @@ const objetOptions = [
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer is:inline></script>
 
 <script>
+  declare global {
+    interface Window {
+      turnstile: {
+        getResponse: () => string | null;
+      };
+    }
+  }
+
   const form = document.querySelector<HTMLFormElement>('.contact-form');
   if (form) {
     form.addEventListener('submit', async (e) => {

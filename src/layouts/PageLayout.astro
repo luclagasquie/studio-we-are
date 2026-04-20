@@ -9,11 +9,12 @@ export interface Props {
   image?: string;
   jsonLd?: object;
   overlayHeader?: boolean;
+  darkHero?: boolean;
 }
 
-const { overlayHeader = false, ...rest } = Astro.props;
+const { overlayHeader = false, darkHero = false, ...rest } = Astro.props;
 ---
-<BaseLayout {...rest}>
+<BaseLayout {...rest} darkHero={darkHero}>
   <Header transparent={overlayHeader} />
   <main id="main-content" class:list={[!overlayHeader && 'main--offset']}>
     <slot />

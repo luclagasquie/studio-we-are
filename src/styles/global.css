@@ -175,6 +175,7 @@ a {
 
 .section {
   padding-block: var(--space-xl);
+  background-color: var(--bg);
 }
 
 .section--dark {

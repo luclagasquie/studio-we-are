@@ -8,6 +8,8 @@ import heroBg from '../assets/services/abstract-alt-2-5.jpg';
 <PageLayout
   title="Services — Studio We Are"
   description="Création de sites web vitrine, e-commerce, WordPress sur-mesure, Astro. Conseil, maintenance, photographie. Lot, France."
+  overlayHeader={true}
+  darkHero={true}
 >
   <!-- Page hero -->
   <section class="page-hero" aria-label="Services">
@@ -65,9 +67,9 @@ import heroBg from '../assets/services/abstract-alt-2-5.jpg';
             Développement complet, choix libres, durée de vie longue.
           </p>
           <ul class="family__list">
-            <li>Développement entièrement sur-mesure</li>
-            <li>Avec ou sans interface d'édition de contenu</li>
-            <li>Liberté totale sur le choix d'hébergeur</li>
+            <li>Développement sur-mesure basé sur Wordpress</li>
+            <li>Interface d'édition de contenu via Gutenberg et/ou ACF</li>
+            <li>Liberté totale sur le choix de votre hébergeur</li>
             <li>Idéal : PME, e-commerce, secteur public, projets à fort trafic</li>
           </ul>
         </div>
@@ -336,6 +338,7 @@ import heroBg from '../assets/services/abstract-alt-2-5.jpg';
   .page-hero__bg {
     position: absolute;
     inset: 0;
+    background-color: #130E0A;
   }
 
   .page-hero__bg::after {
@@ -357,6 +360,19 @@ import heroBg from '../assets/services/abstract-alt-2-5.jpg';
     height: 100%;
     object-fit: cover;
     object-position: center 45%;
+    opacity: 0;
+    transition: opacity 0.7s ease-out;
+  }
+
+  .page-hero__img.is-loaded {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-hero__img {
+      transition: none;
+      opacity: 1;
+    }
   }
 
   .page-hero__content {
@@ -421,7 +437,7 @@ import heroBg from '../assets/services/abstract-alt-2-5.jpg';
   }
 
   .family {
-    padding: 2.5rem;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
   }
@@ -850,3 +866,18 @@ import heroBg from '../assets/services/abstract-alt-2-5.jpg';
     }
   }
 </style>
+
+<script>
+  function initHeroImage() {
+    const img = document.querySelector<HTMLImageElement>('.page-hero__img');
+    if (!img) return;
+    if (img.complete) {
+      img.classList.add('is-loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('is-loaded'));
+    }
+  }
+
+  initHeroImage();
+  document.addEventListener('astro:page-load', initHeroImage);
+</script>

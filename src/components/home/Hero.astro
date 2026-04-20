@@ -67,6 +67,7 @@ import heroBg from '../../assets/hero/luc-lagasquie-paysage-lot.webp';
     position: absolute;
     inset: 0;
     overflow: hidden;
+    background-color: #130E0A;
   }
 
   .hero__bg::after {
@@ -88,6 +89,19 @@ import heroBg from '../../assets/hero/luc-lagasquie-paysage-lot.webp';
     height: 100%;
     object-fit: cover;
     object-position: center top;
+    opacity: 0;
+    transition: opacity 0.7s ease-out;
+  }
+
+  .hero__img.is-loaded {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__img {
+      transition: none;
+      opacity: 1;
+    }
   }
 
   /* Ligne verticale décorative à droite */
@@ -260,3 +274,18 @@ import heroBg from '../../assets/hero/luc-lagasquie-paysage-lot.webp';
     }
   }
 </style>
+
+<script>
+  function initHeroImage() {
+    const img = document.querySelector<HTMLImageElement>('.hero__img');
+    if (!img) return;
+    if (img.complete) {
+      img.classList.add('is-loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('is-loaded'));
+    }
+  }
+
+  initHeroImage();
+  document.addEventListener('astro:page-load', initHeroImage);
+</script>

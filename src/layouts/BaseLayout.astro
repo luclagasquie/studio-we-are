@@ -8,6 +8,7 @@ export interface Props {
   description: string;
   image?: string;
   jsonLd?: object;
+  darkHero?: boolean;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   description,
   image = '/og-default.jpg',
   jsonLd,
+  darkHero = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studioweare.fr');
@@ -52,7 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
       document.addEventListener('astro:after-swap', applyTheme);
     </script>
   </head>
-  <body>
+  <body class:list={[darkHero && 'body--dark-hero']}>
     <slot />
     <script>
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -108,3 +110,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
     </script>
   </body>
 </html>
+
+<style>
+  /* Dark body background for pages with a dark hero — only visible during view transitions */
+  .body--dark-hero {
+    background-color: #0a0805;
+  }
+</style>

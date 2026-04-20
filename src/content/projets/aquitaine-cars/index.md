@@ -7,7 +7,7 @@ lieu: "Figeac, Lot"
 venteEnLigne: false
 design: false
 developpement: true
-collaborateur: "Euré-k !"
+collaborateur: "Euré-k ! / Fonds Perdus"
 order: 30
 url: "https://aquitaine-cars.com/"
 image: "./studio-we-are-site-web-aquitaine-cars.jpeg"
