@@ -12,6 +12,13 @@ const securityHeaders = {
 } as const;
 
 export const onRequest: MiddlewareHandler = async (context, next) => {
+  const url = new URL(context.request.url);
+  const pathname = url.pathname;
+
+  if (pathname !== '/' && !pathname.endsWith('/')) {
+    return Response.redirect(url.origin + pathname + '/', 301);
+  }
+
   const response = await next();
   const newHeaders = new Headers(response.headers);
 

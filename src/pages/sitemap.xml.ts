@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
 
 const SITE = 'https://we-are.fr';
 
@@ -14,19 +13,9 @@ const staticPages = [
 ];
 
 export const GET: APIRoute = async () => {
-  const projects = await getCollection('projets');
-
-  const projectUrls = projects.map((p) => ({
-    loc: `/projets/${p.data.slug}/`,
-    changefreq: 'monthly' as const,
-    priority: '0.7',
-  }));
-
-  const allUrls = [...staticPages, ...projectUrls];
-
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls
+${staticPages
   .map(
     (url) => `  <url>
     <loc>${SITE}${url.loc}</loc>

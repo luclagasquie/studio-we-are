@@ -1,0 +1,146 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/ui/Button.astro';
+import heroImage from '../assets/hero/luc-lagasquie-paysage-lot.webp';
+---
+
+<PageLayout
+  title="Page introuvable — Studio We Are"
+  description="La page que vous cherchez n'existe pas ou a été déplacée. Retournez à l'accueil ou découvrez nos projets."
+  overlayHeader={true}
+  darkHero={true}
+  noindex={true}
+>
+  <section class="error-page">
+    <div class="error-bg">
+      <img
+        src={heroImage.src}
+        srcset={heroImage.srcset}
+        sizes="100vw"
+        alt=""
+        fetchpriority="high"
+        loading="eager"
+      />
+    </div>
+    <div class="error-content container">
+      <span class="error-code hero-animate">404</span>
+      <h1 class="error-title hero-animate">Page introuvable</h1>
+      <p class="error-text hero-animate">
+        Cette page n'existe pas ou a été déplacée. Revenons à quelque chose de concret.
+      </p>
+      <div class="error-actions hero-animate">
+        <Button href="/" variant="primary" size="md">Retour à l'accueil</Button>
+        <Button href="/projets/" variant="outline" size="md">Voir mes projets</Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .error-page {
+    position: relative;
+    min-height: calc(100vh - 4.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--bg-dark);
+  }
+
+  .error-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .error-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.15;
+    filter: grayscale(30%);
+  }
+
+  .error-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-block: var(--space-xl);
+    max-width: 700px;
+  }
+
+  .error-code {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 18vw, 14rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+  }
+
+  .error-title {
+    font-family: var(--font-display);
+    font-size: var(--heading-xl);
+    font-weight: 300;
+    color: #f0ede8;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+  }
+
+  .error-text {
+    font-family: var(--font-display);
+    font-size: var(--text-l);
+    color: rgba(240, 237, 232, 0.6);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 55ch;
+    margin-inline: auto;
+    opacity: 0;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+  }
+
+  :global(.hero-animate) {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  :global(.hero-animate:nth-child(1)) { animation-delay: 0s; }
+  :global(.hero-animate:nth-child(2)) { animation-delay: 0.12s; }
+  :global(.hero-animate:nth-child(3)) { animation-delay: 0.24s; }
+  :global(.hero-animate:nth-child(4)) { animation-delay: 0.36s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.hero-animate) {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .error-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
