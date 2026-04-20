@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://we-are.fr/sitemap.xml
+Sitemap: https://we-are.fr/sitemap-index.xml
