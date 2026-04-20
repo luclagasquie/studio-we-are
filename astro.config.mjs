@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://we-are.fr',
-  output: 'server',
+  output: 'hybrid',
   trailingSlash: 'always',
   adapter: cloudflare({
     platformProxy: {
