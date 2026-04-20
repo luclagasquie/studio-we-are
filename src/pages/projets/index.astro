@@ -148,7 +148,7 @@ const BATCH_SIZE = 6;
 
     // --- Observer pour les animations des cartes révélées ---
     // On crée un observer dédié (le BaseLayout observer est un module ES,
-    // son initialisation n'est pas garantie avant ce script inline)
+    // son initialisation n'est pas garanti avant ce script inline)
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -195,6 +195,34 @@ const BATCH_SIZE = 6;
       } else {
         updateCount();
       }
+    });
+  });
+
+  // --- Image loading: shimmer placeholder + fade-in ---
+  document.addEventListener('astro:page-load', () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const visual = entry.target;
+            const img = visual.querySelector('.project-strip__img');
+            if (img) {
+              if (img.complete) {
+                visual.classList.add('is-loaded');
+              } else {
+                img.addEventListener('load', () => visual.classList.add('is-loaded'));
+                img.addEventListener('error', () => visual.classList.add('is-loaded'));
+              }
+            }
+            observer.unobserve(visual);
+          }
+        });
+      },
+      { rootMargin: '200px' }
+    );
+
+    document.querySelectorAll('.project-strip__visual').forEach((visual) => {
+      observer.observe(visual);
     });
   });
 </script>

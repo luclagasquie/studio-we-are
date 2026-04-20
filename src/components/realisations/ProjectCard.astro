@@ -58,16 +58,17 @@ if (venteEnLigne) services.push('E-commerce');
   {...rest}
 >
   <!-- IMAGE AREA -->
-  <div class="project-strip__visual">
+  <div class:list={['project-strip__visual', 'image-shimmer']}>
     {image ? (
       <Image
         src={image}
         alt={`Capture du projet ${title}`}
         class="project-strip__img"
-        loading="lazy"
+        loading={index! < 2 ? 'eager' : 'lazy'}
         decoding="async"
         widths={[480, 800, 1200]}
         sizes="(max-width: 768px) 100vw, 42vw"
+        {...(index! < 2 ? { fetchpriority: 'high' } : {})}
       />
     ) : (
       <div class="project-strip__placeholder" aria-hidden="true">
@@ -162,11 +163,22 @@ if (venteEnLigne) services.push('E-commerce');
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .is-loaded .project-strip__img {
+    opacity: 1;
   }
 
   .project-strip:hover .project-strip__img {
     transform: scale(1.03);
+  }
+
+  .project-strip__img {
+    transition: opacity 0.4s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease;
   }
 
   @media (width > 900px) {

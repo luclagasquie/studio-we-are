@@ -44,13 +44,15 @@ import CtaSection from '../components/home/CtaSection.astro';
       </div>
 
       <div class="about-hero__visual animate-fade">
-        <div class="about-portrait-wrap">
+        <div class="about-portrait-wrap image-shimmer">
           <Image
             src={portrait}
             alt="Portrait de Luc Lagasquie, fondateur de Studio We Are"
             class="about-portrait"
             widths={[360, 720]}
             sizes="360px"
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
         <div class="about-stats">
@@ -245,6 +247,22 @@ import CtaSection from '../components/home/CtaSection.astro';
 
   .about-portrait-wrap {
     position: relative;
+  }
+
+  .about-portrait {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .is-loaded .about-portrait {
+    opacity: 1;
   }
 
   .about-portrait-wrap::after {
@@ -532,3 +550,19 @@ import CtaSection from '../components/home/CtaSection.astro';
     }
   }
 </style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const portraitWrap = document.querySelector('.about-portrait-wrap');
+    if (!portraitWrap) return;
+    const img = portraitWrap.querySelector('.about-portrait');
+    if (img) {
+      if (img.complete) {
+        portraitWrap.classList.add('is-loaded');
+      } else {
+        img.addEventListener('load', () => portraitWrap.classList.add('is-loaded'));
+        img.addEventListener('error', () => portraitWrap.classList.add('is-loaded'));
+      }
+    }
+  });
+</script>

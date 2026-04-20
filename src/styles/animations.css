@@ -95,6 +95,37 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ===== IMAGE SHIMMER PLACEHOLDER ===== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.image-shimmer {
+  position: relative;
+}
+
+.image-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    var(--bg-alt) 25%,
+    color-mix(in srgb, var(--accent) 6%, var(--bg-alt)) 50%,
+    var(--bg-alt) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.is-loaded .image-shimmer::before {
+  opacity: 0;
+}
+
 /* ===== PREFERS REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade,
@@ -110,5 +141,11 @@
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
+  }
+
+  .image-shimmer::before {
+    animation: none !important;
+    background: var(--bg-alt) !important;
+    opacity: 0 !important;
   }
 }
