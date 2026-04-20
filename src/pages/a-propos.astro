@@ -6,10 +6,30 @@ import portrait from '../assets/about/portrait-luc-lagasquie-studio-we-are-1.jpg
 import celinePhoto from '../assets/about/celine-andrieu.jpeg';
 import eurekPhoto from '../assets/about/eure-k.jpeg';
 import CtaSection from '../components/home/CtaSection.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'À propos — Studio We Are',
+  description: 'Luc Lagasquie, fondateur du Studio We Are. Plus de 15 ans de développement web, basé dans le Lot.',
+  url: 'https://we-are.fr/a-propos/',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Luc Lagasquie',
+    jobTitle: 'Développeur web & consultant digital',
+    foundingDate: '2009',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Studio We Are',
+      url: 'https://we-are.fr',
+    },
+  },
+};
 ---
 <PageLayout
-  title="À propos — Studio We Are"
+  title="À propos — Luc Lagasquie, Studio We Are"
   description="Luc Lagasquie, fondateur du Studio We Are. Plus de 15 ans de développement web, basé dans le Lot. Parcours, valeurs et collaborateurs."
+  jsonLd={jsonLd}
 >
   <!-- Founder section -->
   <section class="section about-section">

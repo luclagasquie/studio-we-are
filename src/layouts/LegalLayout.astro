@@ -8,7 +8,10 @@ export interface Props {
 
 const { title, description = title } = Astro.props;
 ---
-<PageLayout title={title} description={description}>
+<PageLayout
+  title={`${title} — Studio We Are`}
+  description={description}
+>
   <section class="container section legal-section">
     <div class="legal-prose">
       <slot />

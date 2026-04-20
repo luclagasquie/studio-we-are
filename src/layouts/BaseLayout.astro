@@ -2,6 +2,7 @@
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import '../styles/animations.css';
+import ogImage from '../assets/about/og-image.jpg';
 
 export interface Props {
   title: string;
@@ -14,12 +15,27 @@ export interface Props {
 const {
   title,
   description,
-  image = '/og-default.jpg',
+  image,
   jsonLd,
   darkHero = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studioweare.fr');
+const SITE = Astro.site ?? 'https://we-are.fr';
+const canonicalURL = new URL(Astro.url.pathname, SITE);
+
+const ogImageUrl = image
+  ? new URL(image, SITE).href
+  : ogImage.src.startsWith('http')
+    ? ogImage.src
+    : new URL(ogImage.src, SITE).href;
+
+const defaultJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Studio We Are',
+  url: SITE,
+  description,
+};
 ---
 <!doctype html>
 <html lang="fr" data-theme="light">
@@ -31,17 +47,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site ?? 'https://studioweare.fr')} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(defaultJsonLd)} />
     {jsonLd && (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <ClientRouter />
     <script is:inline>
-      // Apply theme before paint — also re-applied after each View Transition swap
       function applyTheme() {
         var stored = localStorage.getItem('theme');
         var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -131,7 +152,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://studiowe
 </html>
 
 <style>
-  /* Dark body background for pages with a dark hero — only visible during view transitions */
   .body--dark-hero {
     background-color: #0a0805;
   }

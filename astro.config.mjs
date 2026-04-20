@@ -1,10 +1,8 @@
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  site: 'https://studioweare.fr',
-  integrations: [sitemap()],
+  site: 'https://we-are.fr',
   output: 'server',
   trailingSlash: 'always',
   adapter: cloudflare({

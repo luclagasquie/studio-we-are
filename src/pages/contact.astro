@@ -18,10 +18,19 @@ const objetOptions = [
   { value: 'photographie', label: 'Photographie' },
   { value: 'autre', label: 'Autre' },
 ];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact — Studio We Are',
+  description: 'Parlons de votre projet web. Basé dans le Lot, Studio We Are intervient partout en France et à l\'international.',
+  url: 'https://we-are.fr/contact/',
+};
 ---
 <PageLayout
   title="Contact — Studio We Are"
   description="Parlons de votre projet web. Basé dans le Lot, Studio We Are intervient partout en France et à l'international. Réponse rapide."
+  jsonLd={jsonLd}
 >
   <section class="section contact-section">
     <div class="container contact-layout">

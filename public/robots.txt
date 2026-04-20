@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://studioweare.fr/sitemap-index.xml
+Sitemap: https://we-are.fr/sitemap.xml

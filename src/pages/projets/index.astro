@@ -11,10 +11,19 @@ const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
 const INITIAL_COUNT = 6;
 const BATCH_SIZE = 6;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Projets — Studio We Are',
+  description: 'Découvrez mes projets web : sites vitrine, e-commerce, WordPress sur-mesure, Astro. Études de cas détaillées.',
+  url: 'https://we-are.fr/projets/',
+};
 ---
 <PageLayout
-  title="Projets — Studio We Are"
+  title="Projets — Réalisations & études de cas — Studio We Are"
   description="Découvrez mes projets web : sites vitrine, e-commerce, WordPress sur-mesure, Astro. Études de cas détaillées."
+  jsonLd={jsonLd}
 >
   <section class="section">
     <div class="container">

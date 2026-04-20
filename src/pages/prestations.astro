@@ -4,10 +4,24 @@ import PageLayout from '../layouts/PageLayout.astro';
 import SectionTitle from '../components/ui/SectionTitle.astro';
 import CtaSection from '../components/home/CtaSection.astro';
 import heroBg from '../assets/services/abstract-alt-2-5.jpg';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Création de sites web sur-mesure',
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Studio We Are',
+    url: 'https://we-are.fr',
+  },
+  areaServed: ['France', 'Canada', 'Suisse'],
+  description: 'Sites vitrine, e-commerce, WordPress sur-mesure, Astro. Conseil, maintenance, photographie.',
+};
 ---
 <PageLayout
-  title="Services — Studio We Are"
-  description="Création de sites web vitrine, e-commerce, WordPress sur-mesure, Astro. Conseil, maintenance, photographie. Lot, France."
+  title="Services — Création de sites web sur-mesure — Studio We Are"
+  description="Sites vitrine, e-commerce, WordPress sur-mesure, Astro. Conseil, maintenance, photographie. Lot, France. Devis gratuit."
+  jsonLd={jsonLd}
   overlayHeader={true}
   darkHero={true}
 >

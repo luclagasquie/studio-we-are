@@ -15,10 +15,30 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 const d = project.data;
+
+const projectUrl = `https://we-are.fr/projets/${d.slug}/`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  url: projectUrl,
+  author: {
+    '@type': 'Person',
+    name: 'Luc Lagasquie',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Studio We Are',
+    url: 'https://we-are.fr',
+  },
+};
 ---
 <PageLayout
-  title={`${d.title} — Studio We Are`}
+  title={`${d.title} — Réalisation — Studio We Are`}
   description={d.description}
+  jsonLd={jsonLd}
 >
   <article>
     <!-- Case study header -->
