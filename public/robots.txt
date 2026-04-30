@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
+
 Sitemap: https://we-are.fr/sitemap-0.xml
